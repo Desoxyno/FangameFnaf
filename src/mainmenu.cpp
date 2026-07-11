@@ -1,5 +1,6 @@
 #include "config.h"
 
+#include "corefunc.h"
 #include "mainmenu.h"
 #include "scene.hpp"
 
@@ -15,7 +16,7 @@ void MainMenu::Enter()
 
     if (!IsModelValid(office.model))
     {
-        office.model = LoadModel("../assets/3D_Models/Office/office.glb");
+        office.model = LoadModel("../assets/models/Office/office.glb");
         for (int i = 0; i < office.model.materialCount; i++)
         {
             office.model.materials[i].shader = *shader;
@@ -25,10 +26,18 @@ void MainMenu::Enter()
     has_entered = true;
 }
 
-void MainMenu::Update() {}
+void MainMenu::Update()
+{
+    if (IsButtonClicked(play_btn))
+    {
+        // ChangeScene(std::make_unique<>);
+        std::cout << "Clicked button";
+    }
+}
 
 void MainMenu::Draw()
 {
+
     BeginDrawing();
 
     ClearBackground(BLACK);
@@ -45,7 +54,11 @@ void MainMenu::Draw()
 
     EndMode3D();
 
-    DrawText("A FNaF fangame", 5, 5, 50, DARKGRAY);
+    DrawRectangleRec(play_btn, {0, 0, 0, 0});
+
+    DrawText("A FNaF fangame", 5, 5, 80, DARKGRAY);
+
+    DrawText("Play", 20, 200, 60, DARKGRAY);
 
     DrawFPS(GetScreenWidth() - 5, GetScreenHeight() - 5);
 

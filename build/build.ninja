@@ -85,6 +85,24 @@ build CMakeFiles/FnafFangame.dir/src/shader.cpp.o: CXX_COMPILER__FnafFangame_uns
   OBJECT_FILE_DIR = CMakeFiles/FnafFangame.dir/src
   TARGET_SUPPORT_DIR = CMakeFiles/FnafFangame.dir
 
+build CMakeFiles/FnafFangame.dir/src/soundloader.cpp.o: CXX_COMPILER__FnafFangame_unscanned_Debug /home/edgar/Documents/fangameFnaf/src/soundloader.cpp || cmake_object_order_depends_target_FnafFangame
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles/FnafFangame.dir/src/soundloader.cpp.o.d
+  FLAGS = -g -std=gnu++20
+  INCLUDES = -I/home/edgar/Documents/fangameFnaf/dependencies/raylib/include
+  OBJECT_DIR = CMakeFiles/FnafFangame.dir
+  OBJECT_FILE_DIR = CMakeFiles/FnafFangame.dir/src
+  TARGET_SUPPORT_DIR = CMakeFiles/FnafFangame.dir
+
+build CMakeFiles/FnafFangame.dir/src/corefunc.cpp.o: CXX_COMPILER__FnafFangame_unscanned_Debug /home/edgar/Documents/fangameFnaf/src/corefunc.cpp || cmake_object_order_depends_target_FnafFangame
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles/FnafFangame.dir/src/corefunc.cpp.o.d
+  FLAGS = -g -std=gnu++20
+  INCLUDES = -I/home/edgar/Documents/fangameFnaf/dependencies/raylib/include
+  OBJECT_DIR = CMakeFiles/FnafFangame.dir
+  OBJECT_FILE_DIR = CMakeFiles/FnafFangame.dir/src
+  TARGET_SUPPORT_DIR = CMakeFiles/FnafFangame.dir
+
 build CMakeFiles/FnafFangame.dir/src/main.cpp.o: CXX_COMPILER__FnafFangame_unscanned_Debug /home/edgar/Documents/fangameFnaf/src/main.cpp || cmake_object_order_depends_target_FnafFangame
   CONFIG = Debug
   DEP_FILE = CMakeFiles/FnafFangame.dir/src/main.cpp.o.d
@@ -102,7 +120,7 @@ build CMakeFiles/FnafFangame.dir/src/main.cpp.o: CXX_COMPILER__FnafFangame_unsca
 #############################################
 # Link the executable FnafFangame
 
-build FnafFangame: CXX_EXECUTABLE_LINKER__FnafFangame_Debug CMakeFiles/FnafFangame.dir/src/intro.cpp.o CMakeFiles/FnafFangame.dir/src/mainmenu.cpp.o CMakeFiles/FnafFangame.dir/src/scenemanager.cpp.o CMakeFiles/FnafFangame.dir/src/shader.cpp.o CMakeFiles/FnafFangame.dir/src/main.cpp.o
+build FnafFangame: CXX_EXECUTABLE_LINKER__FnafFangame_Debug CMakeFiles/FnafFangame.dir/src/intro.cpp.o CMakeFiles/FnafFangame.dir/src/mainmenu.cpp.o CMakeFiles/FnafFangame.dir/src/scenemanager.cpp.o CMakeFiles/FnafFangame.dir/src/shader.cpp.o CMakeFiles/FnafFangame.dir/src/soundloader.cpp.o CMakeFiles/FnafFangame.dir/src/corefunc.cpp.o CMakeFiles/FnafFangame.dir/src/main.cpp.o
   CONFIG = Debug
   DEP_FILE = CMakeFiles/FnafFangame.dir/link.d
   FLAGS = -g

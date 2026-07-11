@@ -9,7 +9,9 @@ add_executable(FnafFangame
     src/intro.cpp
     src/mainmenu.cpp
     src/scenemanager.cpp
-    src/shader.cpp)
+    src/shader.cpp
+    src/soundloader.cpp
+    src/corefunc.cpp)
 
 target_sources(FnafFangame PRIVATE 
     src/main.cpp
@@ -20,8 +22,10 @@ target_sources(FnafFangame PRIVATE
     src/intro.h
     src/mainmenu.h
     src/scene.hpp
-    src/scenemanager.hpp
-    src/shader.hpp
+    src/scenemanager.h
+    src/shader.h
+    src/soundload.h
+    src/corefunc.h
 )
 
 target_include_directories(FnafFangame PRIVATE dependencies/raylib/include)

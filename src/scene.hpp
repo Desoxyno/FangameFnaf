@@ -23,4 +23,8 @@ class Scene
     {
         shader = newShader;
     }
+    void ChangeScene(std::unique_ptr<Scene> scene)
+    {
+        nextScene = std::move(scene);
+    }
 };
