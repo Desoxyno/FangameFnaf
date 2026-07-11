@@ -1,0 +1,7 @@
+# ninja log v7
+1	232	1783690078405700727	CMakeFiles/FnafFangame.dir/src/mainmenu.cpp.o	548eab91c11c69e4
+1	232	1783715451378554720	CMakeFiles/FnafFangame.dir/src/intro.cpp.o	20e8f7c79a850a73
+1	193	1783690346819115342	CMakeFiles/FnafFangame.dir/src/scenemanager.cpp.o	b594510cba0df2a7
+1	267	1783716191732802573	CMakeFiles/FnafFangame.dir/src/main.cpp.o	f4a8bea7578b6dc7
+267	305	1783716191999723539	FnafFangame	d036abde42cca9e4
+1	15	1783702407075262313	CMakeFiles/FnafFangame.dir/src/shader.cpp.o	518515e74c055a7
