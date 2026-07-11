@@ -26,11 +26,6 @@ int main()
 
     scenemanager.shader = shader;
 
-    // Create lights
-    Light lights[1] = { 0 };
-    lights[0] = CreateLight(LIGHT_POINT, (Vector3){4.0f, 3.5f, 0.0f}, Vector3Zero(), WHITE, shader);
-    lights[0].color = Color{255, 255, 255, 255};
-
     LoadFileText("../saves/save.txt");
 
     int introPlayed = 0;
@@ -48,13 +43,11 @@ int main()
 
     while (!WindowShouldClose()){
         
-        UpdateLightValues(shader, lights[0]);
+        
         scenemanager.Update();
         scenemanager.Draw();
         
     
-
-
 }
 
 CloseWindow();

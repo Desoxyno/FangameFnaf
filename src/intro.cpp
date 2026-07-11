@@ -5,12 +5,16 @@
 void Intro::Enter()
 {   
 
+    // Create lights
+    lights[0] = CreateLight(LIGHT_POINT, (Vector3){4.0f, 3.5f, 0.0f}, Vector3Zero(), WHITE, *shader);
+    lights[0].color = Color{255, 255, 255, 255};
+
     introStartTime = GetTime();
 
     camera.changePosition((Vector3){12.0f, 3.5f, 0.0f});
     camera.changeTarget((Vector3){0.0f, 2.0f, 0.0f});
 
-    if (hallway.model.meshCount == 0) {
+    if (!IsModelValid(hallway.model)) {
         hallway.model = LoadModel("../assets/3D_Models/Intro/Hallway.glb");
         for (int i = 0; i < hallway.model.materialCount; i++)
         {
@@ -41,16 +45,19 @@ void Intro::Draw() {
 };
 
 void Intro::Update() {
+    UpdateLightValues(*shader, lights[0]);
 
     double elapsed = GetTime() - introStartTime;
 
-    if (elapsed >= 5) {
+    if (elapsed >= 1.5) {
         nextScene = std::make_unique<MainMenu>();
     }
 }
         
 void Intro::Exit() {
         UnloadModel(hallway.model);
+        lights[0].enabled = false;
+        UpdateLightValues(*shader, lights[0]);
 }
 
 

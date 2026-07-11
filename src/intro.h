@@ -5,6 +5,7 @@
 class Intro : public Scene 
 {
 private:
+Light lights[1];
 GameObject hallway;
 PlayerCamera camera;
 double introStartTime;

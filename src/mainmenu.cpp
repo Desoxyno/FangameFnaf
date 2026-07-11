@@ -8,7 +8,7 @@ void MainMenu::Enter() {
     camera.changePosition((Vector3){2.2f, 5.0f, 5.5f});
     camera.changeTarget((Vector3){0.0f, 4.0f, -1.0f});
 
-    if (office.model.meshCount == 0) {
+    if (!IsModelValid(office.model)) {
         office.model = LoadModel("../assets/3D_Models/Office/office.glb");
         for (int i = 0; i < office.model.materialCount; i++)
         {
