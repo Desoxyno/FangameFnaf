@@ -4,8 +4,8 @@
 
 SceneManager::SceneManager()
 {
-    target = LoadRenderTexture(1700, 800);
-    postShader = LoadShader(0, "../assets/shaders/posterization.fs");
+    // target = LoadRenderTexture(1700, 800);
+    // postShader = LoadShader(0, "../assets/shaders/posterization.fs");
 }
 void SceneManager::ChangeScene(std::unique_ptr<Scene> newScene)
 {
@@ -35,24 +35,25 @@ void SceneManager::Update()
 
 void SceneManager::Draw()
 {
-    BeginTextureMode(target);
+    // BeginTextureMode(target);
 
     ClearBackground(BLACK);
 
     if (current_scene)
         current_scene->Draw();
 
-    EndTextureMode();
+    // EndTextureMode();
 
-    BeginDrawing();
+    // BeginDrawing();
 
-    ClearBackground(BLACK);
+    // ClearBackground(BLACK);
 
-    BeginShaderMode(postShader);
+    // BeginShaderMode(postShader);
 
-    DrawTextureRec(target.texture, {0, 0, (float)target.texture.width, -(float)target.texture.height}, {0, 0}, WHITE);
+    // DrawTextureRec(target.texture, {0, 0, (float)target.texture.width, -(float)target.texture.height}, {0, 0},
+    // WHITE);
 
-    EndShaderMode();
+    // EndShaderMode();
 
-    EndDrawing();
+    // EndDrawing();
 }

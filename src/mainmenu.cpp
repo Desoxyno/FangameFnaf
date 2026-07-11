@@ -5,8 +5,9 @@
 
 void MainMenu::Enter()
 {
-
-    lights[0] = CreateLight(LIGHT_POINT, (Vector3){4.0f, 5.5f, 0.0f}, Vector3Zero(), WHITE, *shader);
+    ResetLights();
+    lights[0].enabled = true;
+    lights[0] = CreateLight(LIGHT_POINT, (Vector3){-2.5f, 6.5f, 0.0f}, Vector3Zero(), WHITE, *shader);
     lights[0].color = Color{255, 255, 255, 255};
 
     camera.changePosition((Vector3){2.2f, 5.0f, 5.5f});
