@@ -2,13 +2,13 @@
 
 #include "scene.hpp"
 
-class Intro : public Scene
+class MainMenu : public Scene
 {
   private:
     Light lights[1];
-    GameObject hallway;
+    GameObject office;
+    bool has_entered = false;
     PlayerCamera camera;
-    double introStartTime;
 
   public:
     void Enter() override;

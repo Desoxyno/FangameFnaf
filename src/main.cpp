@@ -1,6 +1,6 @@
 #include "config.h"
 #include "intro.h"
-#include "mainmenu.hpp"
+#include "mainmenu.h"
 #include "scenemanager.hpp"
 #include "shader.hpp"
 
@@ -14,7 +14,8 @@ int main()
     // SetConfigFlags(FLAG_MSAA_4X_HINT);  // Enable Multi Sampling Anti Aliasing 4x (if available)
     InitWindow(1700, 800, "Fangame FNaF");
 
-    if (!IsWindowReady()) {
+    if (!IsWindowReady())
+    {
         return -1;
     }
 
@@ -30,8 +31,6 @@ int main()
 
     int introPlayed = 0;
 
-
-    
     if (!introPlayed)
     {
         scenemanager.ChangeScene(std::make_unique<Intro>());
@@ -41,19 +40,18 @@ int main()
         scenemanager.ChangeScene(std::make_unique<MainMenu>());
     }
 
-    while (!WindowShouldClose()){
-        
-        
+    while (!WindowShouldClose())
+    {
+
         scenemanager.Update();
         scenemanager.Draw();
-        
-    
-}
+    }
 
-CloseWindow();
+    UnloadShader(shader);
 
-// SaveFileText()
+    CloseWindow();
 
-return 0;
+    // SaveFileText()
 
+    return 0;
 }

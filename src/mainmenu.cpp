@@ -1,14 +1,19 @@
 #include "config.h"
 
+#include "mainmenu.h"
 #include "scene.hpp"
-#include "mainmenu.hpp"
 
-void MainMenu::Enter() {
+void MainMenu::Enter()
+{
+
+    lights[0] = CreateLight(LIGHT_POINT, (Vector3){4.0f, 5.5f, 0.0f}, Vector3Zero(), WHITE, *shader);
+    lights[0].color = Color{255, 255, 255, 255};
 
     camera.changePosition((Vector3){2.2f, 5.0f, 5.5f});
     camera.changeTarget((Vector3){0.0f, 4.0f, -1.0f});
 
-    if (!IsModelValid(office.model)) {
+    if (!IsModelValid(office.model))
+    {
         office.model = LoadModel("../assets/3D_Models/Office/office.glb");
         for (int i = 0; i < office.model.materialCount; i++)
         {
@@ -18,35 +23,32 @@ void MainMenu::Enter() {
 
     has_entered = true;
 }
-        
-void MainMenu::Update() {
 
-}
+void MainMenu::Update() {}
 
-void MainMenu::Draw() {
+void MainMenu::Draw()
+{
     BeginDrawing();
 
-        ClearBackground(BLACK);
-                    
-        BeginMode3D(camera.camera);
+    ClearBackground(BLACK);
 
-            DrawGrid(20, 10.0f);
+    BeginMode3D(camera.camera);
 
-                 if (IsModelValid(office.model)) {
-                    DrawModel(office.model, office.position, 1.0f, WHITE);
-                    // Shader lightning = LoadShader("lighting.vs", "lightning.fs");
-                }
+    DrawGrid(20, 10.0f);
 
-            EndMode3D();
+    if (IsModelValid(office.model))
+    {
+        DrawModel(office.model, office.position, 1.0f, WHITE);
+        // Shader lightning = LoadShader("lighting.vs", "lightning.fs");
+    }
 
-            DrawText("A FNaF fangame", 5, 5, 50, DARKGRAY);
+    EndMode3D();
 
-                    
-            DrawFPS(GetScreenWidth() - 5, GetScreenHeight() - 5);
-                    
+    DrawText("A FNaF fangame", 5, 5, 50, DARKGRAY);
+
+    DrawFPS(GetScreenWidth() - 5, GetScreenHeight() - 5);
+
     EndDrawing();
 }
 
-void MainMenu::Exit() {
-    
-}
+void MainMenu::Exit() {}

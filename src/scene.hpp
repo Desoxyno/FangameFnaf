@@ -5,14 +5,12 @@
 
 #include <memory>
 
-
-
-class Scene {
-    protected:
+class Scene
+{
+  protected:
     Shader* shader = nullptr;
 
-    public:
-
+  public:
     std::unique_ptr<Scene> nextScene = nullptr;
 
     virtual void Enter() {}
@@ -21,7 +19,8 @@ class Scene {
     virtual void Exit() {}
     virtual ~Scene() = default;
 
-    void SetShader(Shader* newShader) {
+    void SetShader(Shader* newShader)
+    {
         shader = newShader;
     }
 };

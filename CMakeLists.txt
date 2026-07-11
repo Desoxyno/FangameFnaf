@@ -18,7 +18,7 @@ target_sources(FnafFangame PRIVATE
     src/config.h
     src/gamestate.h
     src/intro.h
-    src/mainmenu.hpp
+    src/mainmenu.h
     src/scene.hpp
     src/scenemanager.hpp
     src/shader.hpp
