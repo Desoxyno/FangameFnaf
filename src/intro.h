@@ -1,5 +1,7 @@
 #pragma once
 
+#include "camera.hpp"
+#include "gameobject.hpp"
 #include "scene.hpp"
 
 class Intro : public Scene

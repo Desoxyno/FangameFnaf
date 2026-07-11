@@ -51,4 +51,7 @@ void MainMenu::Draw()
     EndDrawing();
 }
 
-void MainMenu::Exit() {}
+void MainMenu::Exit()
+{
+    UnloadModel(office.model);
+}
