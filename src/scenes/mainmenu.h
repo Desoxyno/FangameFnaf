@@ -1,19 +1,17 @@
 #pragma once
 
-#include "camera.hpp"
-#include "gameobject.hpp"
+#include "../core/camera.hpp"
+#include "../core/gameobject.hpp"
 #include "scene.hpp"
 
-#include <vector>
-
-class Intro : public Scene
+class MainMenu : public Scene
 {
   private:
-    std::vector<Sound> sounds;
+    Rectangle play_btn = {15, 200, 150, 65};
     Light lights[1];
-    GameObject hallway;
+    GameObject office;
+    bool has_entered = false;
     PlayerCamera camera;
-    double introStartTime;
 
   public:
     void Enter() override;

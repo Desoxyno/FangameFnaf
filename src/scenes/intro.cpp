@@ -1,8 +1,8 @@
 #include "intro.h"
 
-#include "config.h"
+#include "../core/config.h"
+#include "../core/soundload.h"
 #include "mainmenu.h"
-#include "soundload.h"
 
 void Intro::Enter()
 {

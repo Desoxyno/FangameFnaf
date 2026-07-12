@@ -1,7 +1,7 @@
 #include "mainmenu.h"
 
-#include "config.h"
-#include "corefunc.h"
+#include "../core/config.h"
+#include "../core/corefunc.h"
 #include "scene.hpp"
 
 void MainMenu::Enter()

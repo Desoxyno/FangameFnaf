@@ -6,26 +6,26 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(FnafFangame
-    src/intro.cpp
-    src/mainmenu.cpp
-    src/scenemanager.cpp
-    src/shader.cpp
-    src/soundloader.cpp
-    src/corefunc.cpp)
+    src/scenes/intro.cpp
+    src/scenes/mainmenu.cpp
+    src/scenes/scenemanager.cpp
+    src/core/shader.cpp
+    src/core/soundloader.cpp
+    src/core/corefunc.cpp) 
 
 target_sources(FnafFangame PRIVATE 
     src/main.cpp
-    src/camera.hpp
-    src/gameobject.hpp
-    src/config.h
-    src/gamestate.h
-    src/intro.h
-    src/mainmenu.h
-    src/scene.hpp
-    src/scenemanager.h
-    src/shader.h
-    src/soundload.h
-    src/corefunc.h
+    src/core/camera.hpp
+    src/core/gameobject.hpp
+    src/core/config.h
+    src/core/gamestate.h
+    src/scenes/intro.h
+    src/scenes/mainmenu.h
+    src/scenes/scene.hpp
+    src/scenes/scenemanager.h
+    src/core/shader.h
+    src/core/soundload.h
+    src/core/corefunc.h
 )
 
 target_include_directories(FnafFangame PRIVATE dependencies/raylib/include)

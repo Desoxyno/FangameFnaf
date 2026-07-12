@@ -1,9 +1,9 @@
-#include "config.h"
-#include "gamestate.h"
-#include "intro.h"
-#include "mainmenu.h"
-#include "scenemanager.h"
-#include "shader.h"
+#include "core/config.h"
+#include "core/gamestate.h"
+#include "core/shader.h"
+#include "scenes/intro.h"
+#include "scenes/mainmenu.h"
+#include "scenes/scenemanager.h"
 
 #define RLIGHTS_IMPLEMENTATION
 #include "../dependencies/raylib/include/rlights.h"
@@ -42,7 +42,6 @@ int main()
 
     while (!WindowShouldClose())
     {
-
         scenemanager.Update();
         scenemanager.Draw();
     }

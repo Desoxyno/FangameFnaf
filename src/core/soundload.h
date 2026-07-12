@@ -1,5 +1,6 @@
 #pragma once
-#include "../dependencies/raylib/include/raylib.h"
+#include "../../dependencies/raylib/include/raylib.h"
+
 #include <initializer_list>
 #include <vector>
 
