@@ -1,7 +1,7 @@
-#include "config.h"
-
-#include "corefunc.h"
 #include "mainmenu.h"
+
+#include "config.h"
+#include "corefunc.h"
 #include "scene.hpp"
 
 void MainMenu::Enter()
@@ -37,7 +37,6 @@ void MainMenu::Update()
 
 void MainMenu::Draw()
 {
-
     BeginDrawing();
 
     ClearBackground(BLACK);

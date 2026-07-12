@@ -1,11 +1,11 @@
 #include "intro.h"
+
 #include "config.h"
 #include "mainmenu.h"
 #include "soundload.h"
 
 void Intro::Enter()
 {
-
     ResetLights();
     // Create lights
     lights[0] = CreateLight(LIGHT_POINT, (Vector3){12.0f, 3.5f, 0.0f}, Vector3Zero(), WHITE, *shader);

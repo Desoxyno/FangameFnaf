@@ -3,6 +3,7 @@
 #include "../dependencies/raylib/include/raylib.h"
 #include "../dependencies/raylib/include/rlights.h"
 #include "scene.hpp"
+
 #include <memory>
 
 class SceneManager

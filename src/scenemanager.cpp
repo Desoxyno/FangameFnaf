@@ -1,5 +1,7 @@
 #include "scenemanager.h"
+
 #include "scene.hpp"
+
 #include <memory>
 
 SceneManager::SceneManager()
