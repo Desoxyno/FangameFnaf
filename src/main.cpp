@@ -1,5 +1,7 @@
 #include "core/config.h"
+#include "core/debug_mode.h"
 #include "core/gamestate.h"
+#include "core/global_variable.h"
 #include "core/shader.h"
 #include "scenes/intro.h"
 #include "scenes/mainmenu.h"
@@ -12,7 +14,7 @@
 
 int main()
 {
-    // SetConfigFlags(FLAG_MSAA_4X_HINT);  // Enable Multi Sampling Anti Aliasing 4x (if available)
+    SetConfigFlags(FLAG_MSAA_4X_HINT); // Enable Multi Sampling Anti Aliasing 4x (if available)
     InitWindow(1700, 800, "Fangame FNaF");
     InitAudioDevice();
 
@@ -24,6 +26,8 @@ int main()
     loadSave();
 
     SetTargetFPS(60);
+
+    DebugMode debugmode;
 
     SceneManager scenemanager;
 
@@ -42,8 +46,28 @@ int main()
 
     while (!WindowShouldClose())
     {
-        scenemanager.Update();
-        scenemanager.Draw();
+        if (IsKeyPressed(KEY_F1))
+        {
+            if (InDebug)
+            {
+                InDebug = false;
+            }
+            else
+            {
+                InDebug = true;
+            }
+        }
+
+        if (InDebug)
+        {
+            debugmode.Update();
+            debugmode.Draw();
+        }
+        else
+        {
+            scenemanager.Update();
+            scenemanager.Draw();
+        }
     }
 
     UnloadShader(shader);

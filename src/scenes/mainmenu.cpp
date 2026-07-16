@@ -2,14 +2,17 @@
 
 #include "../core/config.h"
 #include "../core/corefunc.h"
+#include "../core/gamestate.h"
+#include "night1.h"
 #include "scene.hpp"
+
+#include <memory>
 
 void MainMenu::Enter()
 {
     ResetLights();
     lights[0].enabled = true;
-    lights[0] = CreateLight(LIGHT_POINT, (Vector3){-2.5f, 6.5f, 0.0f}, Vector3Zero(), WHITE, *shader);
-    lights[0].color = Color{255, 255, 255, 255};
+    lights[0] = CreateLight(LIGHT_POINT, (Vector3){0.0f, 8.5f, -2.0f}, Vector3Zero(), WHITE, *shader);
 
     camera.changePosition((Vector3){2.2f, 5.0f, 5.5f});
     camera.changeTarget((Vector3){0.0f, 4.0f, -1.0f});
@@ -28,10 +31,11 @@ void MainMenu::Enter()
 
 void MainMenu::Update()
 {
+    UpdateCamera(&camera.camera, CAMERA_PERSPECTIVE);
+
     if (IsButtonClicked(play_btn))
     {
-        // ChangeScene(std::make_unique<>);
-        std::cout << "Clicked button";
+        ChangeScene(std::make_unique<Night1>());
     }
 }
 

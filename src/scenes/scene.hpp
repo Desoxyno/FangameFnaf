@@ -2,8 +2,10 @@
 
 #include "../../dependencies/raylib/include/raylib.h"
 #include "../../dependencies/raylib/include/rlights.h"
+#include "../core/gameobject.hpp"
 
 #include <memory>
+#include <vector>
 
 class Scene
 {
@@ -12,6 +14,7 @@ class Scene
 
   public:
     std::unique_ptr<Scene> nextScene = nullptr;
+    std::vector<GameObject> scene_objects;
 
     virtual void Enter() {}
     virtual void Update() {}

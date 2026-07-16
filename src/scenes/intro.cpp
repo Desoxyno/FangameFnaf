@@ -30,6 +30,8 @@ void Intro::Enter()
             hallway.model.materials[i].shader = *shader;
         }
     }
+
+    scene_objects.push_back(hallway);
 }
 
 void Intro::Draw()
@@ -40,9 +42,12 @@ void Intro::Draw()
 
     BeginMode3D(camera.camera);
 
-    if (IsModelValid(hallway.model))
+    for (GameObject& object : scene_objects)
     {
-        DrawModel(hallway.model, hallway.position, 1.0f, WHITE);
+        if (IsModelValid(object.model))
+        {
+            DrawModel(object.model, object.position, 1.0f, WHITE);
+        }
     }
 
     EndMode3D();
@@ -58,6 +63,8 @@ void Intro::Update()
 {
     UpdateLightValues(*shader, lights[0]);
 
+    UpdateCamera(&camera.camera, CAMERA_PERSPECTIVE);
+
     double elapsed = GetTime() - introStartTime;
 
     if (elapsed >= 0.5)
@@ -68,5 +75,11 @@ void Intro::Update()
 
 void Intro::Exit()
 {
-    UnloadModel(hallway.model);
+    for (GameObject& object : scene_objects)
+    {
+        if (IsModelValid(object.model))
+        {
+            UnloadModel(object.model);
+        }
+    }
 }

@@ -1,12 +1,8 @@
 #pragma once
 
-int current_night;
-bool intro;
+extern int current_night;
+extern bool intro;
 
-char* save;
+extern char* save;
 
-void loadSave()
-{
-    save = LoadFileText("../saves/save.txt");
-    std::cout << save;
-}
+void loadSave();

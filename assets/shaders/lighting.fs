@@ -63,7 +63,7 @@ void main()
             float NdotL = max(dot(normal, light), 0.0);
 
             // lumière augmentée
-            lightDot += lights[i].color.rgb * NdotL * attenuation * 0.1;
+            lightDot += lights[i].color.rgb * NdotL * attenuation * 0.15;
 
             if (NdotL > 0.0)
             {
