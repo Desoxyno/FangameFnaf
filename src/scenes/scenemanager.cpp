@@ -1,8 +1,8 @@
 #include "scenemanager.h"
 
-#include "scene.hpp"
-
 #include <memory>
+
+#include "scene.hpp"
 
 SceneManager::SceneManager()
 {
@@ -42,7 +42,9 @@ void SceneManager::Draw()
     ClearBackground(BLACK);
 
     if (current_scene)
+    {
         current_scene->Draw();
+    }
 
     // EndTextureMode();
 

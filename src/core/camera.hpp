@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../../dependencies/raylib/include/raylib.h"
-
 #include <iostream>
+
+#include "../../dependencies/raylib/include/raylib.h"
 
 class PlayerCamera
 {
-  public:
+public:
     Camera camera;
 
     void changeTarget(Vector3 newtarg)
@@ -29,9 +29,9 @@ class PlayerCamera
 
     PlayerCamera()
     {
-        this->camera.position = (Vector3){0.0f, 0.0f, 0.0f};
-        this->camera.target = (Vector3){0.0f, 0.0f, 0.0f};
-        this->camera.up = (Vector3){0.0f, 1.0f, 0.0f};
+        this->camera.position = (Vector3) {0.0f, 0.0f, 0.0f};
+        this->camera.target = (Vector3) {0.0f, 0.0f, 0.0f};
+        this->camera.up = (Vector3) {0.0f, 1.0f, 0.0f};
         this->camera.fovy = 45.0f;
         this->camera.projection = CAMERA_PERSPECTIVE;
     };

@@ -8,13 +8,13 @@
 #include "scenes/scenemanager.h"
 
 #define RLIGHTS_IMPLEMENTATION
-#include "../dependencies/raylib/include/rlights.h"
-
 #include <memory>
+
+#include "../dependencies/raylib/include/rlights.h"
 
 int main()
 {
-    SetConfigFlags(FLAG_MSAA_4X_HINT); // Enable Multi Sampling Anti Aliasing 4x (if available)
+    SetConfigFlags(FLAG_MSAA_4X_HINT);  // Enable Multi Sampling Anti Aliasing 4x (if available)
     InitWindow(1700, 800, "Fangame FNaF");
     InitAudioDevice();
 
@@ -55,19 +55,27 @@ int main()
             else
             {
                 InDebug = true;
+                debugmode.ActivateDebugMode(scenemanager.current_scene->GetCamera(),
+                                            &scenemanager.current_scene->scene_objects);
             }
         }
 
         if (InDebug)
         {
+            camera_mode = CAMERA_FREE;
+
             debugmode.Update();
+
             debugmode.Draw();
         }
         else
         {
+            camera_mode = CAMERA_CUSTOM;
+
             scenemanager.Update();
-            scenemanager.Draw();
         }
+
+        scenemanager.Draw();
     }
 
     UnloadShader(shader);

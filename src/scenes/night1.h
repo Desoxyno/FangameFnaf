@@ -6,7 +6,7 @@
 
 class Night1 : public Scene
 {
-  private:
+private:
     enum class TabletState
     {
         Closed,
@@ -33,9 +33,10 @@ class Night1 : public Scene
 
     double starttime = 0.0;
 
-  public:
+public:
     void Enter() override;
     void Update() override;
     void Draw() override;
     void Exit() override;
+    PlayerCamera& GetCamera() override;
 };

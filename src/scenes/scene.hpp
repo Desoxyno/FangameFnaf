@@ -1,18 +1,19 @@
 #pragma once
 
-#include "../../dependencies/raylib/include/raylib.h"
-#include "../../dependencies/raylib/include/rlights.h"
-#include "../core/gameobject.hpp"
-
 #include <memory>
 #include <vector>
 
+#include "../../dependencies/raylib/include/raylib.h"
+#include "../../dependencies/raylib/include/rlights.h"
+#include "../core/camera.hpp"
+#include "../core/gameobject.hpp"
+
 class Scene
 {
-  protected:
+protected:
     Shader* shader = nullptr;
 
-  public:
+public:
     std::unique_ptr<Scene> nextScene = nullptr;
     std::vector<GameObject> scene_objects;
 
@@ -21,6 +22,8 @@ class Scene
     virtual void Draw() {}
     virtual void Exit() {}
     virtual ~Scene() = default;
+
+    virtual PlayerCamera& GetCamera() = 0;
 
     void SetShader(Shader* newShader)
     {

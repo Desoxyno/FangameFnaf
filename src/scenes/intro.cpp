@@ -1,6 +1,7 @@
 #include "intro.h"
 
 #include "../core/config.h"
+#include "../core/global_variable.h"
 #include "../core/soundload.h"
 #include "mainmenu.h"
 
@@ -8,7 +9,7 @@ void Intro::Enter()
 {
     ResetLights();
     // Create lights
-    lights[0] = CreateLight(LIGHT_POINT, (Vector3){12.0f, 3.5f, 0.0f}, Vector3Zero(), WHITE, *shader);
+    lights[0] = CreateLight(LIGHT_POINT, (Vector3) {12.0f, 3.5f, 0.0f}, Vector3Zero(), WHITE, *shader);
     lights[0].color = Color{255, 255, 255, 255};
 
     introStartTime = GetTime();
@@ -19,8 +20,8 @@ void Intro::Enter()
 
     PlaySound(sounds[0]);
 
-    camera.changePosition((Vector3){12.0f, 3.5f, 0.0f});
-    camera.changeTarget((Vector3){0.0f, 2.0f, 0.0f});
+    camera.changePosition((Vector3) {12.0f, 3.5f, 0.0f});
+    camera.changeTarget((Vector3) {0.0f, 2.0f, 0.0f});
 
     if (!IsModelValid(hallway.model))
     {
@@ -34,6 +35,11 @@ void Intro::Enter()
     scene_objects.push_back(hallway);
 }
 
+PlayerCamera& Intro::GetCamera()
+{
+    return camera;
+}
+
 void Intro::Draw()
 {
     BeginDrawing();
@@ -44,15 +50,22 @@ void Intro::Draw()
 
     for (GameObject& object : scene_objects)
     {
-        if (IsModelValid(object.model))
+        Matrix transform = object.GetTransform();
+
+        for (int i = 0; i < object.model.meshCount; i++)
         {
-            DrawModel(object.model, object.position, 1.0f, WHITE);
+            DrawMesh(object.model.meshes[i], object.model.materials[object.model.meshMaterial[i]], transform);
         }
     }
 
     EndMode3D();
 
     DrawText("Model by Oxyno83", GetScreenWidth() - 100, GetScreenHeight() - 20, 10, DARKGRAY);
+
+    if (InDebug)
+    {
+        DrawText("Debug Mode", GetScreenWidth() - 100, GetScreenHeight() - 20, 10, BLACK);
+    }
 
     DrawFPS(5, 5);
 
@@ -63,7 +76,7 @@ void Intro::Update()
 {
     UpdateLightValues(*shader, lights[0]);
 
-    UpdateCamera(&camera.camera, CAMERA_PERSPECTIVE);
+    UpdateCamera(&camera.camera, camera_mode);
 
     double elapsed = GetTime() - introStartTime;
 

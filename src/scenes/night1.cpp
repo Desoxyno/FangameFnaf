@@ -14,16 +14,16 @@ void Night1::Enter()
     monitor_frame = 0;
     state = TabletState::Closed;
 
-    cam_btn = {0.0f, GetScreenHeight() - 80.0f, (float)GetScreenWidth(), 80.0f};
+    cam_btn = {0.0f, GetScreenHeight() - 80.0f, (float) GetScreenWidth(), 80.0f};
 
     ResetLights();
 
-    lights[0] = CreateLight(LIGHT_POINT, (Vector3){-1.7f, 6.0f, -0.5f}, Vector3Zero(), WHITE, *shader);
+    lights[0] = CreateLight(LIGHT_POINT, (Vector3) {-1.7f, 6.0f, -0.5f}, Vector3Zero(), WHITE, *shader);
 
     camera.changePosition({-1.7f, 4.0f, 1.6f});
     camera.changeTarget({-1.3f, 3.5f, -6.3f});
 
-    camera_monitor.position = {-1.0f, 4.8f, -2.0f};
+    camera_monitor.positionM = {-1.0f, 4.8f, -2.0f};
 
     if (!IsModelValid(office.model))
     {
@@ -51,17 +51,31 @@ void Night1::Enter()
     TraceLog(LOG_INFO, "Animations: %d", camera_monitor.animationCount);
 
     has_entered = true;
+
+    scene_objects.push_back(office);
+    scene_objects.push_back(camera_monitor);
+}
+
+PlayerCamera& Night1::GetCamera()
+{
+    return camera;
 }
 
 void Night1::Update()
 {
+    UpdateCamera(&camera.camera, camera_mode);
+
     // Gestion de l'heure
     if (GetTime() - starttime >= NIGHT_DURATION / HOURS_PER_NIGHT)
     {
         if (current_hour == 12)
+        {
             current_hour = 1;
+        }
         else
+        {
             current_hour++;
+        }
 
         starttime = GetTime();
     }
@@ -121,14 +135,19 @@ void Night1::Draw()
 
     DrawGrid(20, 10.0f);
 
-    if (IsModelValid(office.model))
+    for (GameObject& object : scene_objects)
     {
-        DrawModel(office.model, office.position, 1.0f, WHITE);
+        Matrix transform = object.GetTransform();
+
+        for (int i = 0; i < object.model.meshCount; i++)
+        {
+            DrawMesh(object.model.meshes[i], object.model.materials[object.model.meshMaterial[i]], transform);
+        }
     }
 
     if (state != TabletState::Closed)
     {
-        DrawModel(camera_monitor.model, camera_monitor.position, 1.0f, WHITE);
+        // DrawModel(camera_monitor.model, camera_monitor.position, 1.0f, WHITE);
     }
 
     EndMode3D();
@@ -143,6 +162,11 @@ void Night1::Draw()
     }
 
     DrawFPS(GetScreenWidth() - 5, GetScreenHeight() - 5);
+
+    if (InDebug)
+    {
+        DrawText("Debug Mode", GetScreenWidth() - 100, GetScreenHeight() - 20, 10, BLACK);
+    }
 
     std::string text = std::to_string(current_hour) + " AM";
 
