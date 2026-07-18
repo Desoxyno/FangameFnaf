@@ -24,13 +24,44 @@ void SceneManager::ChangeScene(std::unique_ptr<Scene> newScene)
 
 void SceneManager::Update()
 {
-    if (current_scene)
+    if (!current_scene)
+    {
+        return;
+    }
+
+    if (current_state == Playing)
     {
         current_scene->Update();
 
         if (current_scene->nextScene)
         {
-            ChangeScene(std::move(current_scene->nextScene));
+            pending_scene = std::move(current_scene->nextScene);
+            current_state = FadeOut;
+        }
+    }
+
+    if (current_state == FadeOut)
+    {
+        fade_alpha += 5;
+
+        if (fade_alpha >= 255)
+        {
+            fade_alpha = 255;
+
+            ChangeScene(std::move(pending_scene));
+
+            current_state = FadeIn;
+        }
+    }
+
+    if (current_state == FadeIn)
+    {
+        fade_alpha -= 5;
+
+        if (fade_alpha <= 0)
+        {
+            fade_alpha = 0;
+            current_state = Playing;
         }
     }
 }
@@ -38,6 +69,8 @@ void SceneManager::Update()
 void SceneManager::Draw()
 {
     // BeginTextureMode(target);
+
+    BeginDrawing();
 
     ClearBackground(BLACK);
 
@@ -48,7 +81,9 @@ void SceneManager::Draw()
 
     // EndTextureMode();
 
-    // BeginDrawing();
+    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color{0, 0, 0, fade_alpha});
+
+    EndDrawing();
 
     // ClearBackground(BLACK);
 
@@ -58,6 +93,4 @@ void SceneManager::Draw()
     // WHITE);
 
     // EndShaderMode();
-
-    // EndDrawing();
 }

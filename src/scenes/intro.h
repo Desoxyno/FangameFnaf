@@ -14,6 +14,7 @@ private:
     GameObject hallway;
     PlayerCamera camera;
     double introStartTime;
+    bool changingScene = false;
 
 public:
     void Enter() override;

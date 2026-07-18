@@ -42,10 +42,6 @@ PlayerCamera& Intro::GetCamera()
 
 void Intro::Draw()
 {
-    BeginDrawing();
-
-    ClearBackground(BLACK);
-
     BeginMode3D(camera.camera);
 
     for (GameObject& object : scene_objects)
@@ -68,8 +64,6 @@ void Intro::Draw()
     }
 
     DrawFPS(5, 5);
-
-    EndDrawing();
 }
 
 void Intro::Update()
@@ -80,8 +74,9 @@ void Intro::Update()
 
     double elapsed = GetTime() - introStartTime;
 
-    if (elapsed >= 0.5)
+    if (elapsed >= 1.5f && !changingScene)
     {
+        changingScene = true;
         nextScene = std::make_unique<MainMenu>();
     }
 }

@@ -127,10 +127,6 @@ void Night1::Update()
 
 void Night1::Draw()
 {
-    BeginDrawing();
-
-    ClearBackground(BLACK);
-
     BeginMode3D(camera.camera);
 
     DrawGrid(20, 10.0f);
@@ -175,8 +171,6 @@ void Night1::Draw()
     int textWidth = MeasureText(text.c_str(), fontSize);
 
     DrawText(text.c_str(), GetScreenWidth() - textWidth - 20, GetScreenHeight() - fontSize - 20, fontSize, RAYWHITE);
-
-    EndDrawing();
 }
 
 void Night1::Exit()

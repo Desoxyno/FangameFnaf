@@ -49,10 +49,6 @@ void MainMenu::Update()
 
 void MainMenu::Draw()
 {
-    BeginDrawing();
-
-    ClearBackground(BLACK);
-
     BeginMode3D(camera.camera);
 
     DrawGrid(20, 10.0f);
@@ -81,8 +77,6 @@ void MainMenu::Draw()
     }
 
     DrawFPS(GetScreenWidth() - 5, GetScreenHeight() - 5);
-
-    EndDrawing();
 }
 
 void MainMenu::Exit()
