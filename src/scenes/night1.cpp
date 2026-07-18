@@ -1,10 +1,10 @@
 #include "night1.h"
 
-#include "../core/config.h"
-#include "../core/corefunc.h"
-#include "../core/global_variable.h"
+#include "config/config.h"
+#include "engine/scene.hpp"
 #include "mainmenu.h"
-#include "scene.hpp"
+#include "utils/corefunc.h"
+#include "utils/global_variable.h"
 
 void Night1::Enter()
 {
@@ -84,44 +84,6 @@ void Night1::Update()
     {
         ChangeScene(std::make_unique<MainMenu>());
         return;
-    }
-
-    // Ouverture tablette
-    if (IsButtonHovered(cam_btn) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && state == TabletState::Closed)
-    {
-        monitor_frame = 0;
-        state = TabletState::Opening;
-    }
-
-    switch (state)
-    {
-        case TabletState::Closed:
-            break;
-
-        case TabletState::Opening:
-        {
-            if (camera_monitor.animationCount > 0)
-            {
-                UpdateModelAnimation(camera_monitor.model, camera_monitor.animations[0], monitor_frame);
-
-                monitor_frame++;
-
-                if (monitor_frame >= camera_monitor.animations[0].keyframeCount)
-                {
-                    monitor_frame = camera_monitor.animations[0].keyframeCount - 1;
-
-                    state = TabletState::Open;
-                }
-            }
-
-            break;
-        }
-
-        case TabletState::Open:
-            break;
-
-        case TabletState::Closing:
-            break;
     }
 }
 

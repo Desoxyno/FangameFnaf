@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../../dependencies/raylib/include/raylib.h"
+#include "raylib.h"
 
 class PlayerCamera
 {

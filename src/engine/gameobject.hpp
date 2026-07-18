@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "../../dependencies/raylib/include/raylib.h"
-#include "../../dependencies/raylib/include/raymath.h"
+#include "raylib.h"
+#include "raymath.h"
 
 class GameObject
 {

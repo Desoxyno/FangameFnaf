@@ -2,9 +2,9 @@
 
 #include <vector>
 
-#include "../core/camera.hpp"
-#include "../core/gameobject.hpp"
-#include "scene.hpp"
+#include "engine/camera.hpp"
+#include "engine/gameobject.hpp"
+#include "engine/scene.hpp"
 
 class Intro : public Scene
 {

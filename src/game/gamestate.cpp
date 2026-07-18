@@ -1,7 +1,8 @@
 #include "gamestate.h"
 
-#include "../../dependencies/raylib/include/raylib.h"
-#include "iostream"
+#include <iostream>
+
+#include "raylib.h"
 
 int current_night = 1;
 bool intro = false;

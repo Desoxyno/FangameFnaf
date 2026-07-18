@@ -2,11 +2,11 @@
 
 #include <vector>
 
-#include "../../dependencies/raylib/include/raylib.h"
-#include "../../dependencies/raylib/include/raymath.h"
-#include "../scenes/scenemanager.h"
-#include "camera.hpp"
-#include "gameobject.hpp"
+#include "engine/camera.hpp"
+#include "engine/gameobject.hpp"
+#include "engine/scenemanager.h"
+#include "raylib.h"
+#include "raymath.h"
 
 class DebugMode
 {

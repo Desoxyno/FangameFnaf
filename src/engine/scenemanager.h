@@ -2,8 +2,8 @@
 
 #include <memory>
 
-#include "../../dependencies/raylib/include/raylib.h"
-#include "../../dependencies/raylib/include/rlights.h"
+#include "raylib.h"
+#include "rlights.h"
 #include "scene.hpp"
 
 class SceneManager

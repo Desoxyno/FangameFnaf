@@ -2,12 +2,12 @@
 
 #include <memory>
 
-#include "../core/config.h"
-#include "../core/corefunc.h"
-#include "../core/gamestate.h"
-#include "../core/global_variable.h"
+#include "config/config.h"
+#include "engine/scene.hpp"
+#include "game/gamestate.h"
 #include "night1.h"
-#include "scene.hpp"
+#include "utils/corefunc.h"
+#include "utils/global_variable.h"
 
 void MainMenu::Enter()
 {

@@ -1,9 +1,9 @@
 #include "intro.h"
 
-#include "../core/config.h"
-#include "../core/global_variable.h"
-#include "../core/soundload.h"
+#include "audio/soundload.h"
+#include "config/config.h"
 #include "mainmenu.h"
+#include "utils/global_variable.h"
 
 void Intro::Enter()
 {

@@ -1,6 +1,6 @@
 #include "debug_mode.h"
 
-#include "../core/global_variable.h"
+#include "utils/global_variable.h"
 
 void DebugMode::ActivateDebugMode(PlayerCamera& pcamera, std::vector<GameObject>* objects)
 {

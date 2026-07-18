@@ -1,11 +1,11 @@
-#include "core/config.h"
-#include "core/debug_mode.h"
-#include "core/gamestate.h"
-#include "core/global_variable.h"
-#include "core/shader.h"
+#include "config/config.h"
+#include "debug/debug_mode.h"
+#include "engine/scenemanager.h"
+#include "engine/shader.h"
+#include "game/gamestate.h"
 #include "scenes/intro.h"
 #include "scenes/mainmenu.h"
-#include "scenes/scenemanager.h"
+#include "utils/global_variable.h"
 
 #define RLIGHTS_IMPLEMENTATION
 #include <memory>

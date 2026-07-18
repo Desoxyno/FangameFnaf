@@ -3,10 +3,10 @@
 #include <memory>
 #include <vector>
 
-#include "../../dependencies/raylib/include/raylib.h"
-#include "../../dependencies/raylib/include/rlights.h"
-#include "../core/camera.hpp"
-#include "../core/gameobject.hpp"
+#include "camera.hpp"
+#include "gameobject.hpp"
+#include "raylib.h"
+#include "rlights.h"
 
 class Scene
 {
