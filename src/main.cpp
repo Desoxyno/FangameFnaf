@@ -46,15 +46,13 @@ int main()
 
     while (!WindowShouldClose())
     {
+        // INPUT + UPDATE
         if (IsKeyPressed(KEY_F1))
         {
+            InDebug = !InDebug;
+
             if (InDebug)
             {
-                InDebug = false;
-            }
-            else
-            {
-                InDebug = true;
                 debugmode.ActivateDebugMode(scenemanager.current_scene->GetCamera(),
                                             &scenemanager.current_scene->scene_objects);
             }
@@ -71,12 +69,19 @@ int main()
             scenemanager.Update();
         }
 
+        // DRAW
+        BeginDrawing();
+
+        ClearBackground(BLACK);
+
         scenemanager.Draw();
 
         if (InDebug)
         {
             debugmode.Draw();
         }
+
+        EndDrawing();
     }
 
     UnloadShader(shader);

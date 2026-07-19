@@ -6,7 +6,6 @@ void DebugMode::ActivateDebugMode(PlayerCamera& pcamera, std::vector<GameObject>
 {
     camera = &pcamera;
     scene_objects = objects;
-
     selected_object = nullptr;
 }
 
@@ -19,6 +18,113 @@ void DebugMode::Update()
 
     UpdateCamera(&camera->camera, CAMERA_FREE);
 
+    // Changement de mode
+    if (IsKeyPressed(KEY_W))
+    {
+        switch (mode)
+        {
+            case Mode::Position:
+                mode = Mode::Rotation;
+                break;
+
+            case Mode::Rotation:
+                mode = Mode::Position;
+                break;
+        }
+    }
+
+    // Changement d'axe
+    if (IsKeyPressed(KEY_X))
+    {
+        switch (submode)
+        {
+            case SubMode::X:
+                submode = SubMode::Y;
+                break;
+
+            case SubMode::Y:
+                submode = SubMode::Z;
+                break;
+
+            case SubMode::Z:
+                submode = SubMode::X;
+                break;
+        }
+    }
+
+    // Déplacement de l'objet sélectionné
+    if (selected_object)
+    {
+        if (IsKeyPressed(KEY_LEFT))
+        {
+            if (mode == Mode::Position)
+            {
+                switch (submode)
+                {
+                    case SubMode::X:
+                        selected_object->positionM.x -= 1.0f;
+                        break;
+                    case SubMode::Y:
+                        selected_object->positionM.y -= 1.0f;
+                        break;
+                    case SubMode::Z:
+                        selected_object->positionM.z -= 1.0f;
+                        break;
+                }
+            }
+            else
+            {
+                switch (submode)
+                {
+                    case SubMode::X:
+                        selected_object->rotationM.x -= 1.0f;
+                        break;
+                    case SubMode::Y:
+                        selected_object->rotationM.y -= 1.0f;
+                        break;
+                    case SubMode::Z:
+                        selected_object->rotationM.z -= 1.0f;
+                        break;
+                }
+            }
+        }
+
+        if (IsKeyPressed(KEY_RIGHT))
+        {
+            if (mode == Mode::Position)
+            {
+                switch (submode)
+                {
+                    case SubMode::X:
+                        selected_object->positionM.x += 1.0f;
+                        break;
+                    case SubMode::Y:
+                        selected_object->positionM.y += 1.0f;
+                        break;
+                    case SubMode::Z:
+                        selected_object->positionM.z += 1.0f;
+                        break;
+                }
+            }
+            else
+            {
+                switch (submode)
+                {
+                    case SubMode::X:
+                        selected_object->rotationM.x += 1.0f;
+                        break;
+                    case SubMode::Y:
+                        selected_object->rotationM.y += 1.0f;
+                        break;
+                    case SubMode::Z:
+                        selected_object->rotationM.z += 1.0f;
+                        break;
+                }
+            }
+        }
+    }
+
+    // Sélection
     if (!IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
         return;
@@ -41,7 +147,6 @@ void DebugMode::Update()
             if (hit.hit && hit.distance < closestDistance)
             {
                 closestDistance = hit.distance;
-
                 collision = hit;
                 selected_object = &object;
             }
@@ -50,22 +155,40 @@ void DebugMode::Update()
 
     if (selected_object)
     {
-        TraceLog(LOG_DEBUG, "%s touched", selected_object->name.c_str());
+        TraceLog(LOG_INFO, "Selected: %s", selected_object->name.c_str());
     }
 }
 
 void DebugMode::Draw()
 {
-    if (!selected_object || !camera)
+    DrawText("Debug Mode", 10, 10, 20, RAYWHITE);
+    DrawFPS(5, 35);
+
+    DrawText(ModeToString(mode).c_str(), 10, 120, 20, RAYWHITE);
+    DrawText(SubModeToString(submode).c_str(), 10, 140, 20, RAYWHITE);
+
+    if (!selected_object)
     {
         return;
     }
 
+    std::string name = "Object: " + selected_object->name;
+
+    std::string position = "Position X:" + std::to_string(selected_object->positionM.x) +
+                           " Y:" + std::to_string(selected_object->positionM.y) +
+                           " Z:" + std::to_string(selected_object->positionM.z);
+
+    DrawText(name.c_str(), 10, 70, 20, RAYWHITE);
+    DrawText(position.c_str(), 10, 100, 20, RAYWHITE);
+
     BeginMode3D(camera->camera);
 
-    BoundingBox box = GetModelBoundingBox(selected_object->model);
-
-    DrawBoundingBox(box, RED);
+    DrawModelWiresEx(selected_object->model,
+                     selected_object->positionM,
+                     selected_object->rotationM,
+                     0.0f,
+                     selected_object->scaleM,
+                     RED);
 
     EndMode3D();
 }

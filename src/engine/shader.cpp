@@ -3,7 +3,7 @@
 Shader getShader()
 {
     // Load basic lighting shader
-    Shader shader = LoadShader("../assets/shaders/lighting.vs", "../../assets/shaders/lighting.fs");
+    Shader shader = LoadShader("../assets/shaders/lighting.vs", "../assets/shaders/lighting.ffs");
     // Get some required shader locations
     shader.locs[SHADER_LOC_VECTOR_VIEW] = GetShaderLocation(shader, "viewPos");
     // NOTE: "matModel" location name is automatically assigned on shader loading,

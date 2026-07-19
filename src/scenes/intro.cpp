@@ -58,13 +58,6 @@ void Intro::Draw()
     EndMode3D();
 
     DrawText("Model by Oxyno83", GetScreenWidth() - 100, GetScreenHeight() - 20, 10, DARKGRAY);
-
-    if (InDebug)
-    {
-        DrawText("Debug Mode", GetScreenWidth() - 100, GetScreenHeight() - 20, 10, BLACK);
-    }
-
-    DrawFPS(5, 5);
 }
 
 void Intro::Update()
