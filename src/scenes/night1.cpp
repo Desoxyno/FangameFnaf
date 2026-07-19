@@ -82,6 +82,8 @@ void Night1::Draw()
 
     DrawGrid(20, 10.0f);
 
+    tablet.Draw();
+
     for (GameObject& object : scene_objects)
     {
         Matrix transform = object.GetTransform();
@@ -91,8 +93,6 @@ void Night1::Draw()
             DrawMesh(object.model.meshes[i], object.model.materials[object.model.meshMaterial[i]], transform);
         }
     }
-
-    tablet.Draw();
 
     EndMode3D();
 

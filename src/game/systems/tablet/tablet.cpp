@@ -2,9 +2,16 @@
 
 Tablet::Tablet()
 {
+    scaleM = {0.5, 0.5, 0.5};
+
     animations = nullptr;
     animationCount = 0;
-    current_anim_frame = 0;
+
+    currentFrame = 0;
+    anim_timer = 0.0f;
+    animFrameSpeed = 0.02f;
+
+    state = State::Closed;
 
     model = LoadModel("../assets/models/Office/camera_monitor.glb");
 
@@ -12,100 +19,98 @@ Tablet::Tablet()
 
     if (animations == nullptr || animationCount == 0)
     {
-        TraceLog(LOG_ERROR, "Failed to load animations!");
+        TraceLog(LOG_ERROR, "Tablet animation loading failed");
         return;
     }
 
-    if (!animationCount > 0)
-    {
-        TraceLog(LOG_ERROR, "Aucune Animation");
-    }
-
-    TraceLog(LOG_INFO, "Loaded %d animation(s)", animationCount);
-
     if (!IsModelAnimationValid(model, animations[0]))
     {
-        TraceLog(LOG_ERROR, "Animation incompatible avec le modele");
+        TraceLog(LOG_ERROR, "Tablet animation incompatible with model");
     }
+
+    TraceLog(LOG_INFO, "Tablet animation loaded (%d frames)", animations[0].keyframeCount);
 }
 
 Tablet::~Tablet()
 {
-    // if (animations != nullptr)
-    // {
-    //     UnloadModelAnimations(animations, animationCount);
-    // }
+    if (animations != nullptr && animationCount > 0)
+    {
+        UnloadModelAnimations(animations, animationCount);
+    }
 
     UnloadModel(model);
 }
 
 void Tablet::Switch()
 {
-    switch (state)
+    if (state == State::Closed)
     {
-        case State::Closed:
-            state = State::Opening;
-            break;
-
-        case State::Open:
-            state = State::Closing;
-            break;
-
-        default:
-            break;
+        state = State::Opening;
+    }
+    if (state == State::Open)
+    {
+        state = State::Closing;
     }
 }
 
 void Tablet::Update()
 {
-    if (animationCount == 0 || animations == nullptr)
+    TraceLog(LOG_INFO, "State %d Frame %d", (int) state, currentFrame);
+
+    if (animations == nullptr || animationCount == 0)
     {
         return;
     }
 
     ModelAnimation& animation = animations[0];
 
-    anim_timer += GetFrameTime();
-
-    if (anim_timer >= anim_speed)
+    if (state == State::Closed)
     {
-        anim_timer = 0.0f;
+        currentFrame = 0;
+    }
 
-        if (state == State::Opening)
+    if (state == State::Open)
+    {
+        currentFrame = 34;
+    }
+
+    if (state == State::Opening || state == State::Closing)
+    {
+        anim_timer += GetFrameTime();
+
+        if (anim_timer >= animFrameSpeed)
         {
-            current_anim_frame++;
+            anim_timer = 0.0f;
 
-            if (current_anim_frame >= animation.keyframeCount)
+            if (state == State::Opening)
             {
-                current_anim_frame = animation.keyframeCount - 1;
-                state = State::Open;
+                currentFrame++;
+
+                if (currentFrame >= animation.keyframeCount - 2)
+                {
+                    currentFrame = animation.keyframeCount - 2;
+                    state = State::Open;
+                }
             }
-        }
-        else if (state == State::Closing)
-        {
-            current_anim_frame--;
-
-            if (current_anim_frame <= 0)
+            else if (state == State::Closing)
             {
-                current_anim_frame = 0;
-                state = State::Closed;
+                currentFrame--;
+
+                if (currentFrame <= 0)
+                {
+                    currentFrame = 0;
+                    state = State::Closed;
+                }
             }
         }
     }
 
-    UpdateModelAnimation(model, animation, current_anim_frame);
-
-    TraceLog(LOG_INFO, "Frame %d / %d", current_anim_frame, animation.keyframeCount);
+    UpdateModelAnimation(model, animation, currentFrame);
 }
 
 void Tablet::Draw()
 {
-    Matrix transform = GetTransform();
-
-    for (int i = 0; i < model.meshCount; i++)
-    {
-        DrawMesh(model.meshes[i], model.materials[model.meshMaterial[i]], transform);
-    }
+    DrawModelEx(model, positionM, {0, 1, 0}, 0, scaleM, WHITE);
 }
 
 void Tablet::ApplyShader(Shader* shader)

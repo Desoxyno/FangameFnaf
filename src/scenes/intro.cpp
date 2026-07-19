@@ -74,7 +74,7 @@ void Intro::Update()
 
     double elapsed = GetTime() - introStartTime;
 
-    if (elapsed >= 1.5f && !changingScene)
+    if (elapsed >= 0.5f && !changingScene)
     {
         changingScene = true;
         nextScene = std::make_unique<MainMenu>();
