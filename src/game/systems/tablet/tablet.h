@@ -1,0 +1,40 @@
+#pragma once
+
+#include "engine/gameobject.hpp"
+
+class Tablet : public GameObject
+{
+private:
+    enum class State
+    {
+        Closed,
+        Opening,
+        Open,
+        Closing
+    };
+
+    State state = State::Closed;
+
+    RenderTexture2D screentexture{};
+
+    float current_anim_frame = 0.0f;
+
+    float anim_timer = 0.0f;
+    float anim_speed = 0.1f;
+
+    Tablet(const Tablet&) = delete;
+    Tablet& operator=(const Tablet&) = delete;
+
+public:
+    Tablet();
+    ~Tablet();
+
+    void Update();
+    void Draw();
+
+    void Switch();
+
+    bool IsOpen() const;
+
+    void ApplyShader(Shader* shader);
+};

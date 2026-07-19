@@ -12,9 +12,12 @@ public:
     Model model;
     ModelAnimation* animations = nullptr;
     int animationCount = 0;
+    float currentFrame = 0;
+    bool playingAnimation = false;
     Vector3 positionM = {0.0f, 0.0f, 0.0f};
     Vector3 rotationM = {0.0f, 0.0f, 0.0f};
     Vector3 scaleM = {1.0f, 1.0f, 1.0f};
+    float animFrameSpeed = 0.5f;
     Matrix GetTransform() const
     {
         Matrix translation = MatrixTranslate(positionM.x, positionM.y, positionM.z);

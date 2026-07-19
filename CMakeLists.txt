@@ -22,6 +22,8 @@ add_executable(FnafFangame
     src/utils/corefunc.cpp
 
     src/debug/debug_mode.cpp
+    src/game/systems/camera/camera_system.cpp
+    src/game/systems/tablet/tablet.cpp
 )
 
 target_include_directories(FnafFangame PRIVATE

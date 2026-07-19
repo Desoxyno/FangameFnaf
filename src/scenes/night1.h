@@ -3,26 +3,18 @@
 #include "engine/camera.hpp"
 #include "engine/gameobject.hpp"
 #include "engine/scene.hpp"
+#include "game/systems/tablet/tablet.h"
 
 class Night1 : public Scene
 {
 private:
-    enum class TabletState
-    {
-        Closed,
-        Opening,
-        Open,
-        Closing
-    };
-
-    TabletState state = TabletState::Closed;
-
     Light lights[1];
+
+    GameObject office;
 
     Rectangle cam_btn{};
 
-    GameObject office;
-    GameObject camera_monitor;
+    Tablet tablet;
 
     PlayerCamera camera;
 

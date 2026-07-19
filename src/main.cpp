@@ -23,6 +23,8 @@ int main()
         return -1;
     }
 
+    TraceLog(LOG_INFO, "Raylib version: %s", RAYLIB_VERSION);
+
     loadSave();
 
     SetTargetFPS(60);

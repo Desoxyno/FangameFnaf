@@ -11,11 +11,6 @@ void Night1::Enter()
     starttime = GetTime();
     current_hour = 12;
 
-    monitor_frame = 0;
-    state = TabletState::Closed;
-
-    cam_btn = {0.0f, GetScreenHeight() - 80.0f, (float) GetScreenWidth(), 80.0f};
-
     ResetLights();
 
     lights[0] = CreateLight(LIGHT_POINT, (Vector3) {-1.7f, 6.0f, -0.5f}, Vector3Zero(), WHITE, *shader);
@@ -23,37 +18,24 @@ void Night1::Enter()
     camera.changePosition({-1.7f, 4.0f, 1.6f});
     camera.changeTarget({-1.3f, 3.5f, -6.3f});
 
-    camera_monitor.positionM = {-1.0f, 4.8f, -2.0f};
+    tablet.positionM = {-1.7f, 4.0f, 1.6f};
+    tablet.ApplyShader(shader);
+
+    cam_btn = {0.0f, (float) GetScreenHeight() - 80.0f, (float) GetScreenWidth(), 80.0f};
+
+    has_entered = true;
 
     if (!IsModelValid(office.model))
     {
         office.model = LoadModel("../assets/models/Office/office.glb");
-
         for (int i = 0; i < office.model.materialCount; i++)
         {
             office.model.materials[i].shader = *shader;
         }
     }
 
-    if (!IsModelValid(camera_monitor.model))
-    {
-        camera_monitor.model = LoadModel("../assets/models/Office/camera_monitor.glb");
-
-        for (int i = 0; i < camera_monitor.model.materialCount; i++)
-        {
-            camera_monitor.model.materials[i].shader = *shader;
-        }
-    }
-
-    camera_monitor.animations =
-        LoadModelAnimations("../assets/models/Office/camera_monitor.glb", &camera_monitor.animationCount);
-
-    TraceLog(LOG_INFO, "Animations: %d", camera_monitor.animationCount);
-
-    has_entered = true;
-
     scene_objects.push_back(office);
-    scene_objects.push_back(camera_monitor);
+    // scene_objects.push_back(camera_monitor);
 }
 
 PlayerCamera& Night1::GetCamera()
@@ -64,6 +46,13 @@ PlayerCamera& Night1::GetCamera()
 void Night1::Update()
 {
     UpdateCamera(&camera.camera, camera_mode);
+    tablet.Update();
+
+    if (IsButtonClicked(cam_btn))
+    {
+        TraceLog(LOG_INFO, "Tablet clicked");
+        tablet.Switch();
+    }
 
     // Gestion de l'heure
     if (GetTime() - starttime >= NIGHT_DURATION / HOURS_PER_NIGHT)
@@ -103,23 +92,20 @@ void Night1::Draw()
         }
     }
 
-    if (state != TabletState::Closed)
-    {
-        // DrawModel(camera_monitor.model, camera_monitor.position, 1.0f, WHITE);
-    }
+    tablet.Draw();
 
     EndMode3D();
 
+    DrawFPS(GetScreenWidth() - 5, GetScreenHeight() - 5);
+
     if (IsButtonHovered(cam_btn))
     {
-        DrawRectangleRec(cam_btn, {255, 0, 0, 20});
+        DrawRectangleRec(cam_btn, {123, 0, 0, 50});
     }
     else
     {
-        DrawRectangleRec(cam_btn, {100, 100, 100, 20});
+        DrawRectangleRec(cam_btn, {255, 0, 0, 50});
     }
-
-    DrawFPS(GetScreenWidth() - 5, GetScreenHeight() - 5);
 
     if (InDebug)
     {
@@ -139,10 +125,10 @@ void Night1::Exit()
 {
     UnloadModel(office.model);
 
-    if (camera_monitor.animations != nullptr)
-    {
-        UnloadModelAnimations(camera_monitor.animations, camera_monitor.animationCount);
-    }
+    // if (camera_monitor.animations != nullptr)
+    // {
+    //     UnloadModelAnimations(camera_monitor.animations, camera_monitor.animationCount);
+    // }
 
-    UnloadModel(camera_monitor.model);
+    // UnloadModel(camera_monitor.model);
 }
