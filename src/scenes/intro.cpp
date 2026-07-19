@@ -32,6 +32,7 @@ void Intro::Enter()
         }
     }
 
+    hallway.name = "Hallway";
     scene_objects.push_back(hallway);
 }
 

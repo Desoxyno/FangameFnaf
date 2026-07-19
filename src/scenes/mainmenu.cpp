@@ -29,6 +29,7 @@ void MainMenu::Enter()
 
     has_entered = true;
 
+    office.name = "Office";
     scene_objects.push_back(office);
 }
 

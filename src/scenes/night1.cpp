@@ -52,6 +52,7 @@ void Night1::Enter()
 
     has_entered = true;
 
+    office.name = "Office";
     scene_objects.push_back(office);
     scene_objects.push_back(camera_monitor);
 }

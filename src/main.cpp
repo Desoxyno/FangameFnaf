@@ -63,19 +63,20 @@ int main()
         if (InDebug)
         {
             camera_mode = CAMERA_FREE;
-
             debugmode.Update();
-
-            debugmode.Draw();
         }
         else
         {
             camera_mode = CAMERA_CUSTOM;
-
             scenemanager.Update();
         }
 
         scenemanager.Draw();
+
+        if (InDebug)
+        {
+            debugmode.Draw();
+        }
     }
 
     UnloadShader(shader);
