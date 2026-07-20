@@ -18,6 +18,7 @@ public:
     Vector3 positionM = {0.0f, 0.0f, 0.0f};
     Vector3 rotationM = {0.0f, 0.0f, 0.0f};
     Vector3 scaleM = {1.0f, 1.0f, 1.0f};
+    Vector3 pivotOffset = {0, 0, 0};
     float animFrameSpeed = 1;
     Matrix GetTransform() const
     {
@@ -27,6 +28,18 @@ public:
 
         Matrix scaleMatrix = MatrixScale(scaleM.x, scaleM.y, scaleM.z);
 
-        return MatrixMultiply(translation, MatrixMultiply(rotation, scaleMatrix));
+        Matrix pivot = MatrixTranslate(-pivotOffset.x, -pivotOffset.y, -pivotOffset.z);
+
+        return MatrixMultiply(translation, MatrixMultiply(rotation, MatrixMultiply(pivot, scaleMatrix)));
     }
+    void CalculatePivot()
+    {
+        BoundingBox box = GetModelBoundingBox(model);
+
+        pivotOffset = {(box.min.x + box.max.x) / 2.0f, (box.min.y + box.max.y) / 2.0f, (box.min.z + box.max.z) / 2.0f};
+    }
+    virtual void Draw();
+    virtual void Update();
+    virtual void Exit();
+    void DrawBounds();
 };

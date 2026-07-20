@@ -15,7 +15,7 @@ protected:
 
 public:
     std::unique_ptr<Scene> nextScene = nullptr;
-    std::vector<GameObject> scene_objects;
+    std::vector<GameObject*> scene_objects;
 
     virtual void Enter() {}
     virtual void Update() {}

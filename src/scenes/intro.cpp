@@ -20,8 +20,10 @@ void Intro::Enter()
 
     PlaySound(sounds[0]);
 
-    camera.changePosition((Vector3) {12.0f, 3.5f, 0.0f});
+    camera.changePosition((Vector3) {21.0f, 3.5f, 0.0f});
     camera.changeTarget((Vector3) {0.0f, 2.0f, 0.0f});
+
+    hallway.positionM = {9, 0, 0};
 
     if (!IsModelValid(hallway.model))
     {
@@ -33,7 +35,7 @@ void Intro::Enter()
     }
 
     hallway.name = "Hallway";
-    scene_objects.push_back(hallway);
+    scene_objects.push_back(&hallway);
 }
 
 PlayerCamera& Intro::GetCamera()
@@ -45,14 +47,9 @@ void Intro::Draw()
 {
     BeginMode3D(camera.camera);
 
-    for (GameObject& object : scene_objects)
+    for (GameObject* object : scene_objects)
     {
-        Matrix transform = object.GetTransform();
-
-        for (int i = 0; i < object.model.meshCount; i++)
-        {
-            DrawMesh(object.model.meshes[i], object.model.materials[object.model.meshMaterial[i]], transform);
-        }
+        object->Draw();
     }
 
     EndMode3D();
@@ -66,6 +63,11 @@ void Intro::Update()
 
     UpdateCamera(&camera.camera, camera_mode);
 
+    for (GameObject* object : scene_objects)
+    {
+        object->Update();
+    }
+
     double elapsed = GetTime() - introStartTime;
 
     if (elapsed >= 0.5f && !changingScene)
@@ -77,11 +79,8 @@ void Intro::Update()
 
 void Intro::Exit()
 {
-    for (GameObject& object : scene_objects)
+    for (GameObject* object : scene_objects)
     {
-        if (IsModelValid(object.model))
-        {
-            UnloadModel(object.model);
-        }
+        object->Exit();
     }
 }

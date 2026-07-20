@@ -29,10 +29,10 @@ public:
     Ray ray = {0};
     RayCollision collision = {0};
     PlayerCamera* camera;
-    std::vector<GameObject>* scene_objects;
+    std::vector<GameObject*>* scene_objects;
     GameObject* selected_object;
 
-    void ActivateDebugMode(PlayerCamera& pcamera, std::vector<GameObject>* objects);
+    void ActivateDebugMode(PlayerCamera& pcamera, std::vector<GameObject*>* objects);
     void Update();
     void Draw();
 

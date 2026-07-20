@@ -35,10 +35,10 @@ void Night1::Enter()
     }
 
     office.name = "Office";
-    tablet.positionM = {10.3f, 4.0f, -6.4f};
-    tablet.rotationM = {0.0f, 0.0f, 0.0f};
-    scene_objects.push_back(office);
-    scene_objects.push_back(tablet);
+    tablet.positionM = {-1.7f, 4.0f, 1.6f};
+    tablet.rotationM = {-180.0f, 0.0f, 0.0f};
+    scene_objects.push_back(&office);
+    scene_objects.push_back(&tablet);
 }
 
 PlayerCamera& Night1::GetCamera()
@@ -49,7 +49,10 @@ PlayerCamera& Night1::GetCamera()
 void Night1::Update()
 {
     UpdateCamera(&camera.camera, camera_mode);
-    tablet.Update();
+    for (GameObject* object : scene_objects)
+    {
+        object->Update();
+    }
 
     if (IsButtonClicked(cam_btn))
     {
@@ -85,16 +88,9 @@ void Night1::Draw()
 
     DrawGrid(20, 10.0f);
 
-    tablet.Draw();
-
-    for (GameObject& object : scene_objects)
+    for (GameObject* object : scene_objects)
     {
-        Matrix transform = object.GetTransform();
-
-        for (int i = 0; i < object.model.meshCount; i++)
-        {
-            DrawMesh(object.model.meshes[i], object.model.materials[object.model.meshMaterial[i]], transform);
-        }
+        object->Draw();
     }
 
     EndMode3D();
@@ -126,12 +122,8 @@ void Night1::Draw()
 
 void Night1::Exit()
 {
-    UnloadModel(office.model);
-
-    // if (camera_monitor.animations != nullptr)
-    // {
-    //     UnloadModelAnimations(camera_monitor.animations, camera_monitor.animationCount);
-    // }
-
-    // UnloadModel(camera_monitor.model);
+    for (GameObject* object : scene_objects)
+    {
+        object->Exit();
+    }
 }

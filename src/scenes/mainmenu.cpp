@@ -30,7 +30,7 @@ void MainMenu::Enter()
     has_entered = true;
 
     office.name = "Office";
-    scene_objects.push_back(office);
+    scene_objects.push_back(&office);
 }
 
 PlayerCamera& MainMenu::GetCamera()
@@ -41,6 +41,11 @@ PlayerCamera& MainMenu::GetCamera()
 void MainMenu::Update()
 {
     UpdateCamera(&camera.camera, camera_mode);
+
+    for (GameObject* object : scene_objects)
+    {
+        object->Update();
+    }
 
     if (IsButtonClicked(play_btn))
     {
@@ -54,14 +59,9 @@ void MainMenu::Draw()
 
     DrawGrid(20, 10.0f);
 
-    for (GameObject& object : scene_objects)
+    for (GameObject* object : scene_objects)
     {
-        Matrix transform = object.GetTransform();
-
-        for (int i = 0; i < object.model.meshCount; i++)
-        {
-            DrawMesh(object.model.meshes[i], object.model.materials[object.model.meshMaterial[i]], transform);
-        }
+        object->Draw();
     }
 
     EndMode3D();
@@ -82,5 +82,8 @@ void MainMenu::Draw()
 
 void MainMenu::Exit()
 {
-    UnloadModel(office.model);
+    for (GameObject* object : scene_objects)
+    {
+        object->Exit();
+    }
 }

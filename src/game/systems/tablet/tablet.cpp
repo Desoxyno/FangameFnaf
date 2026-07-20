@@ -5,7 +5,7 @@ Tablet::Tablet()
     name = "Tablet";
 
     scaleM = {0.5, 0.5, 0.5};
-    positionM = {10.3f, 4.0f, -6.4f};
+    positionM = {0.0f, 0.0f, 0.0f};
     rotationM = {0.0f, 0.0f, 0.0f};
 
     animations = nullptr;
@@ -13,11 +13,13 @@ Tablet::Tablet()
 
     currentFrame = 0;
     anim_timer = 0.0f;
-    animFrameSpeed = 0.02f;
+    animFrameSpeed = 0.002f;
 
     state = State::Closed;
 
     model = LoadModel("../assets/models/Office/camera_monitor.glb");
+    model.transform = MatrixIdentity();
+    CalculatePivot();
 
     animations = LoadModelAnimations("../assets/models/Office/camera_monitor.glb", &animationCount);
 
@@ -35,7 +37,7 @@ Tablet::Tablet()
     TraceLog(LOG_INFO, "Tablet animation loaded (%d frames)", animations[0].keyframeCount);
 }
 
-Tablet::~Tablet()
+void Tablet::Exit()
 {
     if (animations != nullptr && animationCount > 0)
     {
@@ -110,11 +112,6 @@ void Tablet::Update()
     }
 
     UpdateModelAnimation(model, animation, currentFrame);
-}
-
-void Tablet::Draw()
-{
-    DrawModelEx(model, positionM, rotationM, 0, scaleM, WHITE);
 }
 
 void Tablet::ApplyShader(Shader* shader)

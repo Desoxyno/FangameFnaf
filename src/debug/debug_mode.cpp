@@ -2,7 +2,7 @@
 
 #include <cfloat>
 
-void DebugMode::ActivateDebugMode(PlayerCamera& pcamera, std::vector<GameObject>* objects)
+void DebugMode::ActivateDebugMode(PlayerCamera& pcamera, std::vector<GameObject*>* objects)
 {
     camera = &pcamera;
     scene_objects = objects;
@@ -136,19 +136,19 @@ void DebugMode::Update()
 
     float closestDistance = FLT_MAX;
 
-    for (GameObject& object : *scene_objects)
+    for (GameObject* object : *scene_objects)
     {
-        Matrix transform = object.GetTransform();
+        Matrix transform = object->GetTransform();
 
-        for (int i = 0; i < object.model.meshCount; i++)
+        for (int i = 0; i < object->model.meshCount; i++)
         {
-            RayCollision hit = GetRayCollisionMesh(ray, object.model.meshes[i], transform);
+            RayCollision hit = GetRayCollisionMesh(ray, object->model.meshes[i], transform);
 
             if (hit.hit && hit.distance < closestDistance)
             {
                 closestDistance = hit.distance;
                 collision = hit;
-                selected_object = &object;
+                selected_object = object;
             }
         }
     }
@@ -188,12 +188,7 @@ void DebugMode::Draw()
 
     BeginMode3D(camera->camera);
 
-    DrawModelWiresEx(selected_object->model,
-                     selected_object->positionM,
-                     selected_object->rotationM,
-                     0.0f,
-                     selected_object->scaleM,
-                     RED);
+    selected_object->DrawBounds();
 
     EndMode3D();
 }
