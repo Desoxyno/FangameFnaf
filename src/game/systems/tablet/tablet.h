@@ -24,9 +24,10 @@ private:
 
 public:
     Tablet();
+    void Exit() override;
 
     void Update() override;
-    void Exit() override;
+    void Draw() override;
 
     void Switch();
 

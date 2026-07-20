@@ -114,6 +114,20 @@ void Tablet::Update()
     UpdateModelAnimation(model, animation, currentFrame);
 }
 
+void Tablet::Draw()
+{
+    if (currentFrame == 1 || currentFrame == 0)
+    {
+        return;
+    }
+    Matrix transform = GetTransform();
+
+    for (int i = 0; i < model.meshCount; i++)
+    {
+        DrawMesh(model.meshes[i], model.materials[model.meshMaterial[i]], transform);
+    }
+}
+
 void Tablet::ApplyShader(Shader* shader)
 {
     if (shader == nullptr)

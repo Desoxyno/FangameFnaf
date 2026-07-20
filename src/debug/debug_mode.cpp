@@ -206,6 +206,20 @@ void DebugMode::Draw()
 
     DrawText(SubModeToString(submode).c_str(), 10, 180, 20, RAYWHITE);
 
+    DrawText(std::to_string(amount_to_move).c_str(), 10, 200, 20, RAYWHITE);
+
+    std::string cam_target = "Camera Target X:" + std::to_string(current_scene->GetCamera().camera.target.x) +
+                             " Y:" + std::to_string(current_scene->GetCamera().camera.target.y) +
+                             " Z:" + std::to_string(current_scene->GetCamera().camera.target.z);
+
+    std::string cam_pos = "Camera Position X:" + std::to_string(current_scene->GetCamera().camera.position.x) +
+                          " Y:" + std::to_string(current_scene->GetCamera().camera.position.y) +
+                          " Z:" + std::to_string(current_scene->GetCamera().camera.position.z);
+
+    DrawText(cam_target.c_str(), 10, 220, 20, RAYWHITE);
+
+    DrawText(cam_pos.c_str(), 10, 240, 20, RAYWHITE);
+
     level_menu.Draw();
 
     if (!selected_object || !current_scene)
@@ -234,8 +248,6 @@ void DebugMode::Draw()
     DrawText(rotation.c_str(), 10, 120, 20, RAYWHITE);
 
     DrawText(scale.c_str(), 10, 140, 20, RAYWHITE);
-
-    DrawText(std::to_string(amount_to_move).c_str(), 10, 200, 20, RAYWHITE);
 
     BeginMode3D(current_scene->GetCamera().camera);
 
