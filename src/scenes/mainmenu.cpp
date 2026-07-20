@@ -86,4 +86,5 @@ void MainMenu::Exit()
     {
         object->Exit();
     }
+    scene_objects.clear();
 }

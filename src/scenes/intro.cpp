@@ -83,4 +83,6 @@ void Intro::Exit()
     {
         object->Exit();
     }
+
+    scene_objects.clear();
 }

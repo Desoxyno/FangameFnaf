@@ -14,7 +14,8 @@
 
 int main()
 {
-    SetConfigFlags(FLAG_MSAA_4X_HINT);  // Enable Multi Sampling Anti Aliasing 4x (if available)
+    SetConfigFlags(FLAG_MSAA_4X_HINT);
+
     InitWindow(1700, 800, "Fangame FNaF");
     InitAudioDevice();
 
@@ -29,14 +30,15 @@ int main()
 
     SetTargetFPS(60);
 
-    DebugMode debugmode;
-
     SceneManager scenemanager;
+
+    DebugMode debugmode;
 
     Shader shader = getShader();
 
     scenemanager.shader = shader;
 
+    // Première scène
     if (!intro)
     {
         scenemanager.ChangeScene(std::make_unique<Intro>());
@@ -48,30 +50,50 @@ int main()
 
     while (!WindowShouldClose())
     {
-        // INPUT + UPDATE
+        /*
+            INPUT + UPDATE
+        */
+
         if (IsKeyPressed(KEY_F1))
         {
             InDebug = !InDebug;
 
             if (InDebug)
             {
-                debugmode.ActivateDebugMode(scenemanager.current_scene->GetCamera(),
-                                            &scenemanager.current_scene->scene_objects);
+                debugmode.ActivateDebugMode(scenemanager.current_scene.get());
+            }
+            else
+            {
+                debugmode.Reset();
             }
         }
 
         if (InDebug)
         {
             camera_mode = CAMERA_FREE;
+
             debugmode.Update();
+
+            // Demande de changement de scène depuis le debug menu
+            if (debugmode.requestedScene)
+            {
+                scenemanager.ChangeScene(std::move(debugmode.requestedScene));
+
+                // Réattacher le debug à la nouvelle scène
+                debugmode.ActivateDebugMode(scenemanager.current_scene.get());
+            }
         }
         else
         {
             camera_mode = CAMERA_CUSTOM;
+
             scenemanager.Update();
         }
 
-        // DRAW
+        /*
+            DRAW
+        */
+
         BeginDrawing();
 
         ClearBackground(BLACK);
@@ -89,8 +111,6 @@ int main()
     UnloadShader(shader);
 
     CloseWindow();
-
-    // SaveFileText()
 
     return 0;
 }

@@ -50,5 +50,9 @@ void GameObject::Update() {}
 
 void GameObject::Exit()
 {
-    UnloadModel(model);
+    if (IsModelValid(model))
+    {
+        UnloadModel(model);
+        model = {};
+    }
 }

@@ -21,7 +21,10 @@ public:
     virtual void Update() {}
     virtual void Draw() {}
     virtual void Exit() {}
-    virtual ~Scene() = default;
+    virtual ~Scene()
+    {
+        scene_objects.clear();
+    }
 
     virtual PlayerCamera& GetCamera() = 0;
 

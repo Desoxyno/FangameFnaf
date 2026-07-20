@@ -126,4 +126,6 @@ void Night1::Exit()
     {
         object->Exit();
     }
+
+    scene_objects.clear();
 }
