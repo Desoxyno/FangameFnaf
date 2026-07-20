@@ -2,7 +2,11 @@
 
 Tablet::Tablet()
 {
+    name = "Tablet";
+
     scaleM = {0.5, 0.5, 0.5};
+    positionM = {10.3f, 4.0f, -6.4f};
+    rotationM = {0.0f, 0.0f, 0.0f};
 
     animations = nullptr;
     animationCount = 0;
@@ -110,7 +114,7 @@ void Tablet::Update()
 
 void Tablet::Draw()
 {
-    DrawModelEx(model, positionM, {0, 1, 0}, 0, scaleM, WHITE);
+    DrawModelEx(model, positionM, rotationM, 0, scaleM, WHITE);
 }
 
 void Tablet::ApplyShader(Shader* shader)

@@ -35,8 +35,10 @@ void Night1::Enter()
     }
 
     office.name = "Office";
+    tablet.positionM = {10.3f, 4.0f, -6.4f};
+    tablet.rotationM = {0.0f, 0.0f, 0.0f};
     scene_objects.push_back(office);
-    // scene_objects.push_back(camera_monitor);
+    scene_objects.push_back(tablet);
 }
 
 PlayerCamera& Night1::GetCamera()

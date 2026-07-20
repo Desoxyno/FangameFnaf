@@ -164,8 +164,8 @@ void DebugMode::Draw()
     DrawText("Debug Mode", 10, 10, 20, RAYWHITE);
     DrawFPS(5, 35);
 
-    DrawText(ModeToString(mode).c_str(), 10, 120, 20, RAYWHITE);
-    DrawText(SubModeToString(submode).c_str(), 10, 140, 20, RAYWHITE);
+    DrawText(ModeToString(mode).c_str(), 10, 140, 20, RAYWHITE);
+    DrawText(SubModeToString(submode).c_str(), 10, 160, 20, RAYWHITE);
 
     if (!selected_object)
     {
@@ -178,8 +178,13 @@ void DebugMode::Draw()
                            " Y:" + std::to_string(selected_object->positionM.y) +
                            " Z:" + std::to_string(selected_object->positionM.z);
 
+    std::string rotation = "Rotation X:" + std::to_string(selected_object->rotationM.x) +
+                           " Y:" + std::to_string(selected_object->rotationM.y) +
+                           " Z:" + std::to_string(selected_object->rotationM.z);
+
     DrawText(name.c_str(), 10, 70, 20, RAYWHITE);
     DrawText(position.c_str(), 10, 100, 20, RAYWHITE);
+    DrawText(rotation.c_str(), 10, 120, 20, RAYWHITE);
 
     BeginMode3D(camera->camera);
 
