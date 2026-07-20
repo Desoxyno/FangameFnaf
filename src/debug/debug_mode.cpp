@@ -1,7 +1,5 @@
 #include "debug_mode.h"
 
-#include <cfloat>
-
 void DebugMode::ActivateDebugMode(Scene* scene)
 {
     current_scene = scene;
@@ -14,6 +12,9 @@ void DebugMode::Update()
     {
         return;
     }
+
+    amount_to_move += GetMouseWheelMove() * scrollSpeed;
+    amount_to_move = std::clamp(amount_to_move, 0.1f, 100.0f);
 
     PlayerCamera& camera = current_scene->GetCamera();
     auto& scene_objects = current_scene->scene_objects;
@@ -49,7 +50,20 @@ void DebugMode::Update()
     // Changement Position / Rotation
     if (IsKeyPressed(KEY_W))
     {
-        mode = (mode == Mode::Position) ? Mode::Rotation : Mode::Position;
+        switch (mode)
+        {
+            case Mode::Position:
+                mode = Mode::Rotation;
+                break;
+
+            case Mode::Rotation:
+                mode = Mode::Scale;
+                break;
+
+            case Mode::Scale:
+                mode = Mode::Position;
+                break;
+        }
     }
 
     // Changement axe
@@ -78,12 +92,12 @@ void DebugMode::Update()
 
         if (IsKeyPressed(KEY_LEFT))
         {
-            direction = -1;
+            direction = -amount_to_move;
         }
 
         if (IsKeyPressed(KEY_RIGHT))
         {
-            direction = 1;
+            direction = amount_to_move;
         }
 
         if (direction != 0)
@@ -105,7 +119,7 @@ void DebugMode::Update()
                         break;
                 }
             }
-            else
+            else if (mode == Mode::Rotation)
             {
                 switch (submode)
                 {
@@ -119,6 +133,23 @@ void DebugMode::Update()
 
                     case SubMode::Z:
                         selected_object->rotationM.z += direction;
+                        break;
+                }
+            }
+            else
+            {
+                switch (submode)
+                {
+                    case SubMode::X:
+                        selected_object->scaleM.x += direction;
+                        break;
+
+                    case SubMode::Y:
+                        selected_object->scaleM.y += direction;
+                        break;
+
+                    case SubMode::Z:
+                        selected_object->scaleM.z += direction;
                         break;
                 }
             }
@@ -171,9 +202,9 @@ void DebugMode::Draw()
 
     DrawFPS(5, 35);
 
-    DrawText(ModeToString(mode).c_str(), 10, 140, 20, RAYWHITE);
+    DrawText(ModeToString(mode).c_str(), 10, 160, 20, RAYWHITE);
 
-    DrawText(SubModeToString(submode).c_str(), 10, 160, 20, RAYWHITE);
+    DrawText(SubModeToString(submode).c_str(), 10, 180, 20, RAYWHITE);
 
     level_menu.Draw();
 
@@ -192,11 +223,19 @@ void DebugMode::Draw()
                            " Y:" + std::to_string(selected_object->rotationM.y) +
                            " Z:" + std::to_string(selected_object->rotationM.z);
 
+    std::string scale = "Scale X:" + std::to_string(selected_object->scaleM.x) +
+                        " Y:" + std::to_string(selected_object->scaleM.y) +
+                        " Z:" + std::to_string(selected_object->scaleM.z);
+
     DrawText(name.c_str(), 10, 70, 20, RAYWHITE);
 
     DrawText(position.c_str(), 10, 100, 20, RAYWHITE);
 
     DrawText(rotation.c_str(), 10, 120, 20, RAYWHITE);
+
+    DrawText(scale.c_str(), 10, 140, 20, RAYWHITE);
+
+    DrawText(std::to_string(amount_to_move).c_str(), 10, 200, 20, RAYWHITE);
 
     BeginMode3D(current_scene->GetCamera().camera);
 

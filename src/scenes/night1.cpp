@@ -18,7 +18,6 @@ void Night1::Enter()
     camera.changePosition({-1.7f, 4.0f, 1.6f});
     camera.changeTarget({-1.3f, 3.5f, -6.3f});
 
-    tablet.positionM = {-1.7f, 4.0f, 1.6f};
     tablet.ApplyShader(shader);
 
     cam_btn = {0.0f, (float) GetScreenHeight() - 80.0f, (float) GetScreenWidth(), 80.0f};
@@ -35,8 +34,8 @@ void Night1::Enter()
     }
 
     office.name = "Office";
-    tablet.positionM = {-1.7f, 4.0f, 1.6f};
-    tablet.rotationM = {-180.0f, 0.0f, 0.0f};
+    tablet.positionM = {6.7f, -4.0f, 5.6f};
+    tablet.rotationM = {-180.0f, -90.0f, 0.0f};
     scene_objects.push_back(&office);
     scene_objects.push_back(&tablet);
 }

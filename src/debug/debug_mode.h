@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <cfloat>
 #include <string>
 #include <vector>
@@ -20,7 +21,8 @@ public:
     enum class Mode
     {
         Position,
-        Rotation
+        Rotation,
+        Scale
     };
     enum class SubMode
     {
@@ -30,6 +32,8 @@ public:
     };
 
     Dropdown level_menu{{10, 10, 180, 30}, {"Intro", "Main Menu", "Night1"}};
+    float amount_to_move = 1.0f;
+    float scrollSpeed = 0.1f;
 
     std::unique_ptr<Scene> requestedScene = nullptr;
 
@@ -54,6 +58,8 @@ public:
 
             case Mode::Rotation:
                 return "Rotation";
+            case Mode::Scale:
+                return "Scale";
 
             default:
                 return "Unknown";
