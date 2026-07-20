@@ -48,15 +48,13 @@ int main()
 
     while (!WindowShouldClose())
     {
+        // INPUT + UPDATE
         if (IsKeyPressed(KEY_F1))
         {
+            InDebug = !InDebug;
+
             if (InDebug)
             {
-                InDebug = false;
-            }
-            else
-            {
-                InDebug = true;
                 debugmode.ActivateDebugMode(scenemanager.current_scene->GetCamera(),
                                             &scenemanager.current_scene->scene_objects);
             }
@@ -65,19 +63,27 @@ int main()
         if (InDebug)
         {
             camera_mode = CAMERA_FREE;
-
             debugmode.Update();
-
-            debugmode.Draw();
         }
         else
         {
             camera_mode = CAMERA_CUSTOM;
-
             scenemanager.Update();
         }
 
+        // DRAW
+        BeginDrawing();
+
+        ClearBackground(BLACK);
+
         scenemanager.Draw();
+
+        if (InDebug)
+        {
+            debugmode.Draw();
+        }
+
+        EndDrawing();
     }
 
     UnloadShader(shader);

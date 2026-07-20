@@ -34,6 +34,7 @@ void Night1::Enter()
         }
     }
 
+    office.name = "Office";
     scene_objects.push_back(office);
     // scene_objects.push_back(camera_monitor);
 }

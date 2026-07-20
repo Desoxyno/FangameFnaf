@@ -70,10 +70,6 @@ void SceneManager::Draw()
 {
     // BeginTextureMode(target);
 
-    BeginDrawing();
-
-    ClearBackground(BLACK);
-
     if (current_scene)
     {
         current_scene->Draw();
@@ -82,8 +78,6 @@ void SceneManager::Draw()
     // EndTextureMode();
 
     DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color{0, 0, 0, fade_alpha});
-
-    EndDrawing();
 
     // ClearBackground(BLACK);
 

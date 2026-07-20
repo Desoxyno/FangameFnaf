@@ -10,6 +10,7 @@ class GameObject
 public:
     std::string name;
     Model model;
+    BoundingBox bounds;
     ModelAnimation* animations = nullptr;
     int animationCount = 0;
     int currentFrame = 0;
