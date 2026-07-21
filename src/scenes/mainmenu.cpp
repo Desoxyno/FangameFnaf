@@ -15,8 +15,8 @@ void MainMenu::Enter()
     lights[0].enabled = true;
     lights[0] = CreateLight(LIGHT_POINT, (Vector3) {0.0f, 8.5f, -2.0f}, Vector3Zero(), WHITE, *shader);
 
-    camera.changePosition((Vector3) {2.2f, 5.0f, 5.5f});
-    camera.changeTarget((Vector3) {0.0f, 4.0f, -1.0f});
+    camera.changePosition((Vector3) {1.77f, 2.3f, 2.0f});
+    camera.changeTarget((Vector3) {-1.0f, 0.85f, -4.2f});
 
     if (!IsModelValid(office.model))
     {

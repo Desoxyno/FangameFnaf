@@ -15,8 +15,8 @@ void Night1::Enter()
 
     lights[0] = CreateLight(LIGHT_POINT, (Vector3) {-1.7f, 6.0f, -0.5f}, Vector3Zero(), WHITE, *shader);
 
-    camera.changePosition({-1.7f, 3.5f, 1.6f});
-    camera.changeTarget({-1.7f, 3.5f, -1000.0f});
+    camera.changePosition({-0.6f, 1.4f, -0.41f});
+    camera.changeTarget({5.4f, -10.6f, -1000.0f});
 
     tablet.ApplyShader(shader);
 
@@ -43,10 +43,6 @@ void Night1::Enter()
 
     office.name = "Office";
     main_stage.name = "Main Stage";
-
-    tablet.positionM = {4.2f, -1.15f, -0.3f};
-    tablet.rotationM = {-180.0f, -90.0f, 0.0f};
-    tablet.scaleM = {2.4f, 1.6f, 0.5f};
 
     main_stage.positionM = {50, 0, 0};
 

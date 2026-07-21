@@ -33,7 +33,7 @@ public:
 
     Dropdown level_menu{{10, 10, 180, 30}, {"Intro", "Main Menu", "Night1"}};
     float amount_to_move = 1.0f;
-    float scrollSpeed = 0.1f;
+    float scrollSpeed = 0.05f;
 
     std::unique_ptr<Scene> requestedScene = nullptr;
 

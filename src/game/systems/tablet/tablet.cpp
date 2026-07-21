@@ -4,16 +4,16 @@ Tablet::Tablet()
 {
     name = "Tablet";
 
-    scaleM = {0.5, 0.5, 0.5};
-    positionM = {0.0f, 0.0f, 0.0f};
-    rotationM = {0.0f, 0.0f, 0.0f};
+    scaleM = {1, 1, 1};
+    positionM = {0.64f, -1.2f, 0.45f};
+    rotationM = {-180.0f, -90.0f, 0.0f};
 
     animations = nullptr;
     animationCount = 0;
 
     currentFrame = 0;
     anim_timer = 0.0f;
-    animFrameSpeed = 0.002f;
+    animFrameSpeed = 0.001f;
 
     state = State::Closed;
 

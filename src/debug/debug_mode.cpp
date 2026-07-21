@@ -14,7 +14,7 @@ void DebugMode::Update()
     }
 
     amount_to_move += GetMouseWheelMove() * scrollSpeed;
-    amount_to_move = std::clamp(amount_to_move, 0.1f, 100.0f);
+    amount_to_move = std::clamp(amount_to_move, 0.01f, 100.0f);
 
     PlayerCamera& camera = current_scene->GetCamera();
     auto& scene_objects = current_scene->scene_objects;
