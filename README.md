@@ -43,6 +43,7 @@ Voici la liste de tous mes outils :
 | Action | Contrôle |
 |--------|----------|
 | Interagir avec l'environnement | Souris |
+| Activer le mode de debug | F1 |
 
 ## État du projet
 
