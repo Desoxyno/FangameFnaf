@@ -32,12 +32,26 @@ void Night1::Enter()
             office.model.materials[i].shader = *shader;
         }
     }
+    if (!IsModelValid(main_stage.model))
+    {
+        main_stage.model = LoadModel("../assets/models/Map/main_stage.glb");
+        for (int i = 0; i < main_stage.model.materialCount; i++)
+        {
+            main_stage.model.materials[i].shader = *shader;
+        }
+    }
 
     office.name = "Office";
+    main_stage.name = "Main Stage";
+
     tablet.positionM = {4.2f, -1.15f, -0.3f};
     tablet.rotationM = {-180.0f, -90.0f, 0.0f};
     tablet.scaleM = {2.4f, 1.6f, 0.5f};
+
+    main_stage.positionM = {50, 0, 0};
+
     scene_objects.push_back(&office);
+    scene_objects.push_back(&main_stage);
     scene_objects.push_back(&tablet);
 }
 

@@ -5,8 +5,8 @@
 #include <string>
 #include <vector>
 
-#include "engine/camera.hpp"
 #include "engine/gameobject.hpp"
+#include "engine/player_camera.hpp"
 #include "engine/scenemanager.h"
 #include "raylib.h"
 #include "raymath.h"

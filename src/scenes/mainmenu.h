@@ -1,7 +1,7 @@
 #pragma once
 
-#include "engine/camera.hpp"
 #include "engine/gameobject.hpp"
+#include "engine/player_camera.hpp"
 #include "engine/scene.hpp"
 
 class MainMenu : public Scene

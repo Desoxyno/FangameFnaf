@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "engine/camera.hpp"
 #include "engine/gameobject.hpp"
+#include "engine/player_camera.hpp"
 #include "engine/scene.hpp"
 
 class Intro : public Scene

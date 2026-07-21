@@ -1,7 +1,7 @@
 #pragma once
 
-#include "engine/camera.hpp"
 #include "engine/gameobject.hpp"
+#include "engine/player_camera.hpp"
 #include "engine/scene.hpp"
 #include "game/systems/tablet/tablet.h"
 
@@ -11,6 +11,8 @@ private:
     Light lights[1];
 
     GameObject office;
+
+    GameObject main_stage;
 
     Rectangle cam_btn{};
 

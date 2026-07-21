@@ -3,8 +3,8 @@
 #include <memory>
 #include <vector>
 
-#include "camera.hpp"
 #include "gameobject.hpp"
+#include "player_camera.hpp"
 #include "raylib.h"
 #include "rlights.h"
 
