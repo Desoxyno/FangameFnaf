@@ -59,3 +59,9 @@ mkdir build
 cd build
 cmake ..
 make
+```
+
+## Credits
+- Robot Base by John Doe - Licensed under CC BY 4.0 - 
+Modified by Edgar for this project.
+https://creativecommons.org/licenses/by/4.0/

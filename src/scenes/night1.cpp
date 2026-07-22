@@ -8,6 +8,8 @@
 
 void Night1::Enter()
 {
+    spring_trap.positionM = {0, 0, 0};
+
     starttime = GetTime();
     current_hour = 12;
 
@@ -32,6 +34,14 @@ void Night1::Enter()
             office.model.materials[i].shader = *shader;
         }
     }
+    if (!IsModelValid(spring_trap.model))
+    {
+        spring_trap.model = LoadModel("../assets/models/animatronics/Springtrap_Retexture_HP.glb");
+        for (int i = 0; i < spring_trap.model.materialCount; i++)
+        {
+            spring_trap.model.materials[i].shader = *shader;
+        }
+    }
     if (!IsModelValid(main_stage.model))
     {
         main_stage.model = LoadModel("../assets/models/Map/main_stage.glb");
@@ -49,6 +59,8 @@ void Night1::Enter()
     scene_objects.push_back(&office);
     scene_objects.push_back(&main_stage);
     scene_objects.push_back(&tablet);
+
+    animatronics.push_back(&spring_trap);
 }
 
 PlayerCamera& Night1::GetCamera()
@@ -62,6 +74,11 @@ void Night1::Update()
     for (GameObject* object : scene_objects)
     {
         object->Update();
+    }
+
+    for (Animatronic* animatronic : animatronics)
+    {
+        animatronic->Update();
     }
 
     if (IsButtonClicked(cam_btn))
@@ -103,6 +120,11 @@ void Night1::Draw()
         object->Draw();
     }
 
+    for (Animatronic* animatronic : animatronics)
+    {
+        animatronic->Draw();
+    }
+
     EndMode3D();
 
     DrawFPS(GetScreenWidth() - 5, GetScreenHeight() - 5);
@@ -137,5 +159,10 @@ void Night1::Exit()
         object->Exit();
     }
 
+    for (Animatronic* animatronic : animatronics)
+    {
+        animatronic->Exit();
+    }
     scene_objects.clear();
+    animatronics.clear();
 }

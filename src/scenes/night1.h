@@ -3,6 +3,7 @@
 #include "engine/gameobject.hpp"
 #include "engine/player_camera.hpp"
 #include "engine/scene.hpp"
+#include "game/systems/animatronics/animatronic.h"
 #include "game/systems/tablet/tablet.h"
 
 class Night1 : public Scene
@@ -19,6 +20,10 @@ private:
     Tablet tablet;
 
     PlayerCamera camera;
+
+    Animatronic spring_trap;
+
+    std::vector<Animatronic*> animatronics;
 
     bool has_entered = false;
 
