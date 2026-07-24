@@ -1,17 +1,8 @@
 ---
 BasedOnStyle: LLVM
 
-########################################
-# Language
-########################################
-
 Language: Cpp
 Standard: c++20
-
-
-########################################
-# Indentation
-########################################
 
 IndentWidth: 4
 TabWidth: 4
@@ -20,17 +11,7 @@ UseTab: Never
 ContinuationIndentWidth: 4
 ConstructorInitializerIndentWidth: 4
 
-
-########################################
-# Line width
-########################################
-
 ColumnLimit: 120
-
-
-########################################
-# Braces - Allman
-########################################
 
 BreakBeforeBraces: Allman
 
@@ -47,11 +28,6 @@ BraceWrapping:
   SplitEmptyRecord: false
   SplitEmptyNamespace: false
 
-
-########################################
-# Short statements
-########################################
-
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
@@ -60,31 +36,16 @@ AllowShortBlocksOnASingleLine: Never
 AllowShortEnumsOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
 
-
-########################################
-# Pointers / references
-########################################
-
 DerivePointerAlignment: false
 
 PointerAlignment: Left
 ReferenceAlignment: Left
-
-
-########################################
-# Classes
-########################################
 
 AccessModifierOffset: -4
 EmptyLineBeforeAccessModifier: LogicalBlock
 
 BreakInheritanceList: BeforeColon
 BreakConstructorInitializers: BeforeComma
-
-
-########################################
-# Functions
-########################################
 
 BinPackArguments: false
 BinPackParameters: false
@@ -94,32 +55,17 @@ AllowAllParametersOfDeclarationOnNextLine: false
 
 PenaltyReturnTypeOnItsOwnLine: 1000
 
-
-########################################
-# Calls
-########################################
-
 AlignAfterOpenBracket: Align
 
 BreakBeforeBinaryOperators: None
 
 BreakBeforeTernaryOperators: true
 
-
-########################################
-# Initializers
-########################################
-
 Cpp11BracedListStyle: true
 
 SpaceBeforeCpp11BracedList: false
 
 BreakArrays: true
-
-
-########################################
-# Includes
-########################################
 
 SortIncludes: true
 IncludeBlocks: Regroup
@@ -131,26 +77,11 @@ IncludeCategories:
   - Regex: '^".*"'
     Priority: 2
 
-
-########################################
-# Namespaces
-########################################
-
 NamespaceIndentation: None
 
 FixNamespaceComments: true
 
-
-########################################
-# Switch
-########################################
-
 IndentCaseLabels: true
-
-
-########################################
-# Alignment
-########################################
 
 AlignConsecutiveAssignments:
   Enabled: false
@@ -159,11 +90,6 @@ AlignConsecutiveDeclarations:
   Enabled: false
 
 AlignTrailingComments: false
-
-
-########################################
-# Spaces
-########################################
 
 SpaceBeforeParens: ControlStatements
 
@@ -175,28 +101,13 @@ SpaceAfterCStyleCast: true
 
 SpaceAfterTemplateKeyword: false
 
-
-########################################
-# Comments
-########################################
-
 ReflowComments: true
 
 SpacesBeforeTrailingComments: 2
 
-
-########################################
-# Empty lines
-########################################
-
 KeepEmptyLinesAtTheStartOfBlocks: false
 
 MaxEmptyLinesToKeep: 1
-
-
-########################################
-# Modern C++
-########################################
 
 SortUsingDeclarations: true
 
@@ -204,22 +115,12 @@ PackConstructorInitializers: Never
 
 LambdaBodyIndentation: Signature
 
-
-########################################
-# Macros
-########################################
-
 StatementMacros:
   - Q_UNUSED
   - RLAPI
 
 TypenameMacros:
   - STACK_OF
-
-
-########################################
-# Objective quality
-########################################
 
 RemoveBracesLLVM: false
 
