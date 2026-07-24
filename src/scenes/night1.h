@@ -3,7 +3,7 @@
 #include "engine/gameobject.hpp"
 #include "engine/player_camera.hpp"
 #include "engine/scene.hpp"
-#include "game/systems/animatronics/animatronic.h"
+#include "game/systems/animatronics/springtrap.h"
 #include "game/systems/tablet/tablet.h"
 
 class Night1 : public Scene
@@ -21,7 +21,7 @@ private:
 
     PlayerCamera camera;
 
-    Animatronic spring_trap;
+    Springtrap spring_trap;
 
     std::vector<Animatronic*> animatronics;
 

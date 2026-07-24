@@ -12,7 +12,7 @@ public:
 
     std::string name;
 
-    PossibleRooms current_room = PossibleRooms::MainStage;
+    std::string icon;
 
-    int next_room = 0;
+    virtual void UpdatePosition();
 };
