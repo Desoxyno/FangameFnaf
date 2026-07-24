@@ -7,8 +7,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(FnafFangame
     src/main.cpp
-
-    src/scenes/intro.cpp
     src/scenes/mainmenu.cpp
     src/scenes/night1.cpp
 

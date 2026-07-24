@@ -61,8 +61,6 @@ void Tablet::Switch()
 
 void Tablet::Update()
 {
-    TraceLog(LOG_INFO, "State %d Frame %d", (int) state, currentFrame);
-
     if (animations == nullptr || animationCount == 0)
     {
         return;

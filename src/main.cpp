@@ -3,7 +3,6 @@
 #include "engine/scenemanager.h"
 #include "engine/shader.h"
 #include "game/gamestate.h"
-#include "scenes/intro.h"
 #include "scenes/mainmenu.h"
 #include "utils/global_variable.h"
 
@@ -38,22 +37,10 @@ int main()
 
     scenemanager.shader = shader;
 
-    // Première scène
-    if (!intro)
-    {
-        scenemanager.ChangeScene(std::make_unique<Intro>());
-    }
-    else
-    {
-        scenemanager.ChangeScene(std::make_unique<MainMenu>());
-    }
+    scenemanager.ChangeScene(std::make_unique<MainMenu>());
 
     while (!WindowShouldClose())
     {
-        /*
-            INPUT + UPDATE
-        */
-
         if (IsKeyPressed(KEY_F1))
         {
             InDebug = !InDebug;
@@ -74,12 +61,10 @@ int main()
 
             debugmode.Update();
 
-            // Demande de changement de scène depuis le debug menu
             if (debugmode.requestedScene)
             {
                 scenemanager.ChangeScene(std::move(debugmode.requestedScene));
 
-                // Réattacher le debug à la nouvelle scène
                 debugmode.ActivateDebugMode(scenemanager.current_scene.get());
             }
         }
@@ -89,10 +74,6 @@ int main()
 
             scenemanager.Update();
         }
-
-        /*
-            DRAW
-        */
 
         BeginDrawing();
 

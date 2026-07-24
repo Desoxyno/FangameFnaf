@@ -31,14 +31,10 @@ void DebugMode::Update()
         switch (level_menu.selected)
         {
             case 0:
-                requestedScene = std::make_unique<Intro>();
-                break;
-
-            case 1:
                 requestedScene = std::make_unique<MainMenu>();
                 break;
 
-            case 2:
+            case 1:
                 requestedScene = std::make_unique<Night1>();
                 break;
         }

@@ -59,3 +59,8 @@ mkdir build
 cd build
 cmake ..
 make
+```
+
+## Crédits
+
+- Gars sur reddit qui a créé des textures fidèles a **FNaF 1** [Lien du post](https://www.reddit.com/r/fivenightsatfreddys/comments/j4ly6d/fnaf_1_walls_hello_fredditors_ive_recently/?tl=fr)

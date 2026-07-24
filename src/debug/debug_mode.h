@@ -10,7 +10,6 @@
 #include "engine/scenemanager.h"
 #include "raylib.h"
 #include "raymath.h"
-#include "scenes/intro.h"
 #include "scenes/mainmenu.h"
 #include "scenes/night1.h"
 #include "utils/dropdown.h"
@@ -31,7 +30,7 @@ public:
         Z
     };
 
-    Dropdown level_menu{{10, 10, 180, 30}, {"Intro", "Main Menu", "Night1"}};
+    Dropdown level_menu{{10, 10, 180, 30}, {"Main Menu", "Night1"}};
     float amount_to_move = 1.0f;
     float scrollSpeed = 0.05f;
 
