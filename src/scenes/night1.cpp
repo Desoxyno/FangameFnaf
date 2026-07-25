@@ -36,7 +36,7 @@ void Night1::Enter()
     }
     if (!IsModelValid(spring_trap.model))
     {
-        spring_trap.model = LoadModel("../assets/models/animatronics/Springtrap_Retexture_HP.glb");
+        spring_trap.model = LoadModel("../assets/models/Office/camera_monitor.glb");
         for (int i = 0; i < spring_trap.model.materialCount; i++)
         {
             spring_trap.model.materials[i].shader = *shader;
