@@ -3,6 +3,7 @@
 #include "engine/gameobject.hpp"
 #include "engine/player_camera.hpp"
 #include "engine/scene.hpp"
+#include "game/systems/animatronics/springtrap.h"
 #include "game/systems/camera/camera_system.h"
 #include "game/systems/tablet/tablet.h"
 
@@ -24,6 +25,10 @@ private:
     PlayerCamera camera;
 
     Camera_System cam_system;
+
+    Springtrap spring_trap;
+
+    std::vector<Animatronic*> animatronics;
 
     bool has_entered = false;
 

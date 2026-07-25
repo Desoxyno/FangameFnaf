@@ -24,18 +24,31 @@ add_executable(FnafFangame
     src/game/systems/tablet/tablet.cpp
     src/engine/gameobject.cpp
     src/utils/dropdown.cpp
+    src/game/systems/animatronics/springtrap.cpp
+    src/game/systems/animatronics/animatronic.cpp
 )
 
 target_include_directories(FnafFangame PRIVATE
-    dependencies/raylib/include
     src
 )
 
-target_link_directories(FnafFangame PRIVATE
-    dependencies/raylib/lib
-)
+if(WIN32)
+    target_include_directories(FnafFangame PRIVATE
+        dependencies/raylib-win/include)
+    target_link_directories(FnafFangame PRIVATE
+        dependencies/raylib-win/lib)
+else()
+    target_include_directories(FnafFangame PRIVATE
+        dependencies/raylib-li/include)
+    target_link_directories(FnafFangame PRIVATE
+        dependencies/raylib-li/lib)
+endif()
 
-target_link_libraries(FnafFangame PRIVATE
-    raylib
-    X11
-)
+target_link_libraries(FnafFangame PRIVATE raylib)
+
+if(WIN32)
+    target_link_libraries(FnafFangame PRIVATE opengl32 gdi32 winmm)
+    target_link_options(FnafFangame PRIVATE -static-libgcc -static-libstdc++ -static)
+else()
+    target_link_libraries(FnafFangame PRIVATE X11)
+endif()

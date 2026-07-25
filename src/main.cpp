@@ -9,7 +9,7 @@
 #define RLIGHTS_IMPLEMENTATION
 #include <memory>
 
-#include "../dependencies/raylib/include/rlights.h"
+#include "rlights.h"
 
 int main()
 {
