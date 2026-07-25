@@ -8,6 +8,7 @@
 
 void Night1::Enter()
 {
+    cam_system.InitializeCameras();
     starttime = GetTime();
     current_hour = 12;
 
@@ -44,7 +45,7 @@ void Night1::Enter()
     office.name = "Office";
     main_stage.name = "Main Stage";
 
-    main_stage.positionM = {50, 0, 0};
+    main_stage.positionM = {25, 0, 0};
 
     scene_objects.push_back(&office);
     scene_objects.push_back(&main_stage);
@@ -58,7 +59,24 @@ PlayerCamera& Night1::GetCamera()
 
 void Night1::Update()
 {
-    UpdateCamera(&camera.camera, camera_mode);
+    if (tablet.currentFrame == 34)
+    {
+        InCams = true;
+    }
+    else
+    {
+        InCams = false;
+    }
+
+    if (InCams)
+    {
+        cam_system.Update();
+    }
+    else
+    {
+        UpdateCamera(&camera.camera, camera_mode);
+    }
+
     for (GameObject* object : scene_objects)
     {
         object->Update();
@@ -94,7 +112,14 @@ void Night1::Update()
 
 void Night1::Draw()
 {
-    BeginMode3D(camera.camera);
+    if (InCams)
+    {
+        BeginMode3D(cam_system.GetCurrentCamera().camera);
+    }
+    else
+    {
+        BeginMode3D(camera.camera);
+    }
 
     DrawGrid(20, 10.0f);
 

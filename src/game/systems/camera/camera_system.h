@@ -6,7 +6,17 @@
 
 class Camera_System
 {
-public:
-    SecurityCamera* current_camera;
+private:
+    int current_camera = 0;
     std::array<SecurityCamera, 2> cameras;
+
+public:
+    void InitializeCameras();
+
+    void Update();
+
+    SecurityCamera& GetCurrentCamera()
+    {
+        return cameras[current_camera];
+    }
 };
