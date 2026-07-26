@@ -26,11 +26,22 @@ void MainMenu::Enter()
             office.model.materials[i].shader = *shader;
         }
     }
+    if (!IsModelValid(storage_room.model))
+    {
+        storage_room.model = LoadModel("../assets/models/Map/storage_room.glb");
+        for (int i = 0; i < storage_room.model.materialCount; i++)
+        {
+            storage_room.model.materials[i].shader = *shader;
+        }
+    }
 
     has_entered = true;
 
     office.name = "Office";
+    storage_room.name = "Storage Room";
+
     scene_objects.push_back(&office);
+    scene_objects.push_back(&storage_room);
 }
 
 PlayerCamera& MainMenu::GetCamera()
