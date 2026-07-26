@@ -1,5 +1,7 @@
 #include "night1.h"
 
+#include <typeinfo>
+
 #include "config/config.h"
 #include "engine/scene.hpp"
 #include "mainmenu.h"
@@ -60,8 +62,7 @@ void Night1::Enter()
     scene_objects.push_back(&office);
     scene_objects.push_back(&main_stage);
     scene_objects.push_back(&tablet);
-
-    animatronics.push_back(&spring_trap);
+    scene_objects.push_back(&spring_trap);
 }
 
 PlayerCamera& Night1::GetCamera()
@@ -94,18 +95,12 @@ void Night1::Update()
         object->Update();
     }
 
-    for (Animatronic* animatronic : animatronics)
-    {
-        animatronic->Update();
-    }
-
     if (IsButtonClicked(cam_btn))
     {
         TraceLog(LOG_INFO, "Tablet clicked");
         tablet.Switch();
     }
 
-    // Gestion de l'heure
     if (GetTime() - starttime >= NIGHT_DURATION / HOURS_PER_NIGHT)
     {
         if (current_hour == 12)
@@ -143,11 +138,6 @@ void Night1::Draw()
     for (GameObject* object : scene_objects)
     {
         object->Draw();
-    }
-
-    for (Animatronic* animatronic : animatronics)
-    {
-        animatronic->Draw();
     }
 
     EndMode3D();

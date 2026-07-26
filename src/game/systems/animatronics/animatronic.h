@@ -13,6 +13,4 @@ public:
     std::string name;
 
     std::string icon;
-
-    virtual void UpdatePosition();
 };
