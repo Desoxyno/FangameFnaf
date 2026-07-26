@@ -53,14 +53,24 @@ void Night1::Enter()
             main_stage.model.materials[i].shader = *shader;
         }
     }
+    if (!IsModelValid(storage_room.model))
+    {
+        storage_room.model = LoadModel("../assets/models/Map/storage_room.glb");
+        for (int i = 0; i < storage_room.model.materialCount; i++)
+        {
+            storage_room.model.materials[i].shader = *shader;
+        }
+    }
 
     office.name = "Office";
     main_stage.name = "Main Stage";
+    storage_room.name = "Storage Room";
 
     main_stage.positionM = {25, 0, 0};
 
     scene_objects.push_back(&office);
     scene_objects.push_back(&main_stage);
+    scene_objects.push_back(&storage_room);
     scene_objects.push_back(&tablet);
     scene_objects.push_back(&spring_trap);
 }

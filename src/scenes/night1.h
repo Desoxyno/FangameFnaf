@@ -14,9 +14,10 @@ private:
 
     Light lights[1];
 
+    // Rooms
     GameObject office;
-
     GameObject main_stage;
+    GameObject storage_room;
 
     Rectangle cam_btn{};
 
