@@ -12,6 +12,6 @@ Shader getShader()
 
     // Ambient light level (some basic lighting)
     int ambientLoc = GetShaderLocation(shader, "ambient");
-    SetShaderValue(shader, ambientLoc, (float[4]) {0.0005f, 0.0005f, 0.0005f, 1.0f}, SHADER_UNIFORM_VEC4);
+    SetShaderValue(shader, ambientLoc, (float[4]) {0.001f, 0.001f, 0.002f, 1.0f}, SHADER_UNIFORM_VEC4);
     return shader;
 }
