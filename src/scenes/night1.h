@@ -18,6 +18,13 @@ private:
     GameObject office;
     GameObject main_stage;
     GameObject storage_room;
+    GameObject partsservice;
+
+    std::vector<std::string> paths = {"../assets/models/Office/office.glb",
+                                      "../assets/models/Map/Office_Hallway.glb",
+                                      "../assets/models/Map/Parts&Service.glb",
+                                      "../assets/models/Map/storage_room.glb"};
+    std::vector<std::string> noms = {"Office", "Office Hallway", "Parts & Service", "Storage Room"};
 
     Rectangle cam_btn{};
 

@@ -29,50 +29,8 @@ void Night1::Enter()
 
     has_entered = true;
 
-    if (!IsModelValid(office.model))
-    {
-        office.model = LoadModel("../assets/models/Office/office.glb");
-        for (int i = 0; i < office.model.materialCount; i++)
-        {
-            office.model.materials[i].shader = *shader;
-        }
-    }
-    if (!IsModelValid(spring_trap.model))
-    {
-        spring_trap.model = LoadModel("../assets/models/Office/camera_monitor.glb");
-        for (int i = 0; i < spring_trap.model.materialCount; i++)
-        {
-            spring_trap.model.materials[i].shader = *shader;
-        }
-    }
-    if (!IsModelValid(main_stage.model))
-    {
-        main_stage.model = LoadModel("../assets/models/Map/main_stage.glb");
-        for (int i = 0; i < main_stage.model.materialCount; i++)
-        {
-            main_stage.model.materials[i].shader = *shader;
-        }
-    }
-    if (!IsModelValid(storage_room.model))
-    {
-        storage_room.model = LoadModel("../assets/models/Map/storage_room.glb");
-        for (int i = 0; i < storage_room.model.materialCount; i++)
-        {
-            storage_room.model.materials[i].shader = *shader;
-        }
-    }
-
-    office.name = "Office";
-    main_stage.name = "Main Stage";
-    storage_room.name = "Storage Room";
-
-    main_stage.positionM = {25, 0, 0};
-
-    scene_objects.push_back(&office);
-    scene_objects.push_back(&main_stage);
-    scene_objects.push_back(&storage_room);
+    preparingModels(paths, noms, scene_objects);
     scene_objects.push_back(&tablet);
-    scene_objects.push_back(&spring_trap);
 }
 
 PlayerCamera& Night1::GetCamera()
@@ -184,10 +142,5 @@ void Night1::Exit()
         object->Exit();
     }
 
-    for (Animatronic* animatronic : animatronics)
-    {
-        animatronic->Exit();
-    }
     scene_objects.clear();
-    animatronics.clear();
 }

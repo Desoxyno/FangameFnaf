@@ -36,4 +36,23 @@ public:
     {
         nextScene = std::move(scene);
     }
+    void preparingModels(std::vector<std::string> paths,
+                         std::vector<std::string> names,
+                         std::vector<GameObject*>& scene_objects)
+    {
+        for (size_t i = 0; i < paths.size(); i++)
+        {
+            GameObject* newObject = new GameObject();
+
+            newObject->model = LoadModel(paths[i].c_str());
+            newObject->name = names[i];
+
+            for (int j = 0; j < newObject->model.materialCount; j++)
+            {
+                newObject->model.materials[j].shader = *shader;
+            }
+
+            scene_objects.push_back(newObject);
+        }
+    }
 };
