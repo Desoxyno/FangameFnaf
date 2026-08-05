@@ -3,11 +3,17 @@
 void Springtrap::Update()
 {
     maxDist = 3.0f * GetFrameTime();
-    next_pos = path_points[current_point];
-    if (current_pos == next_pos && (current_point + 1) < path_points.size())
+
+
+    if (current_node->position == next_node->position)
     {
-        next_pos = path_points[current_point += 1];
+        next_node = current_node->search_next_node();
     }
-    current_pos = Vector3MoveTowards(current_pos, next_pos, maxDist);
-    positionM = current_pos;
+    positionM = Vector3MoveTowards(current_node->position, next_node->position, maxDist);
+};
+
+Springtrap::Springtrap() {
+    Node basement;
+    Node office_left;
+    Node office_front;
 };

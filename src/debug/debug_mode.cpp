@@ -19,7 +19,6 @@ void DebugMode::Update()
     PlayerCamera& camera = current_scene->GetCamera();
     auto& scene_objects = current_scene->scene_objects;
 
-    // Caméra libre uniquement avec clic droit
     if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
     {
         UpdateCamera(&camera.camera, CAMERA_FREE);
@@ -43,7 +42,6 @@ void DebugMode::Update()
         return;
     }
 
-    // Changement Position / Rotation
     if (IsKeyPressed(KEY_W))
     {
         switch (mode)
@@ -62,7 +60,6 @@ void DebugMode::Update()
         }
     }
 
-    // Changement axe
     if (IsKeyPressed(KEY_X))
     {
         switch (submode)
@@ -81,7 +78,6 @@ void DebugMode::Update()
         }
     }
 
-    // Modification objet sélectionné
     if (selected_object)
     {
         float direction = 0;
@@ -152,7 +148,6 @@ void DebugMode::Update()
         }
     }
 
-    // Sélection objet
     if (!IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
         return;
@@ -195,8 +190,6 @@ void DebugMode::Update()
 void DebugMode::Draw()
 {
     DrawText("Debug Mode", 10, 10, 20, RAYWHITE);
-
-    DrawFPS(5, 35);
 
     DrawText(ModeToString(mode).c_str(), 10, 160, 20, RAYWHITE);
 

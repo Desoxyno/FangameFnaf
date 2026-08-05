@@ -65,7 +65,7 @@ void MainMenu::Draw()
         DrawText("Debug Mode", GetScreenWidth() - 100, GetScreenHeight() - 20, 10, BLACK);
     }
 
-    DrawFPS(GetScreenWidth() - 5, GetScreenHeight() - 5);
+    DrawFPS(GetScreenWidth() - 90, 5);
 }
 
 void MainMenu::Exit()

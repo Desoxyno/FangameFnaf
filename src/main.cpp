@@ -16,6 +16,7 @@ int main()
     SetConfigFlags(FLAG_MSAA_4X_HINT);
 
     InitWindow(1700, 800, "Fangame FNaF");
+
     InitAudioDevice();
 
     if (!IsWindowReady())
@@ -25,9 +26,7 @@ int main()
 
     TraceLog(LOG_INFO, "Raylib version: %s", RAYLIB_VERSION);
 
-    loadSave();
-
-    SetTargetFPS(60);
+    // loadSave();
 
     SceneManager scenemanager;
 
@@ -87,6 +86,8 @@ int main()
         }
 
         EndDrawing();
+
+        SwapScreenBuffer();
     }
 
     UnloadShader(shader);

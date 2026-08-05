@@ -133,6 +133,8 @@ void Night1::Draw()
     int textWidth = MeasureText(text.c_str(), fontSize);
 
     DrawText(text.c_str(), GetScreenWidth() - textWidth - 20, GetScreenHeight() - fontSize - 20, fontSize, RAYWHITE);
+
+    DrawFPS(GetScreenWidth() - 90, 5);
 }
 
 void Night1::Exit()
