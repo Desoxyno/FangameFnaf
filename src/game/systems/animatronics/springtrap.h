@@ -16,10 +16,14 @@ public:
     Node* current_node;
     Node* next_node;
 
-    Vector3 current_pos;
-
     float maxDist = 0.0f;
 
+    Node* basement = nullptr;
+    Node* office_left = nullptr;
+    Node* office_front = nullptr;
+
     void Update() override;
+    void Log();
     Springtrap();
+    ~Springtrap();
 };

@@ -40,6 +40,10 @@ PlayerCamera& Night1::GetCamera()
 
 void Night1::Update()
 {
+
+    spring_trap.Update();
+
+
     if (tablet.currentFrame == 34)
     {
         InCams = true;
