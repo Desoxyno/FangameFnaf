@@ -3,20 +3,21 @@
 #include <array>
 #include <random>
 
-#include "animatronic.h"
+#include "engine/gameobject.hpp"
 #include "node.h"
 #include "raylib.h"
 
-class Springtrap : public Animatronic
+class Springtrap : public GameObject
 {
 
 public:
     ModelAnimation jumpscare_anim;
 
-    Node* current_node;
-    Node* next_node;
+    Node* previous_node = nullptr;
+    Node* current_node = nullptr;
+    Node* next_node = nullptr;
 
-    float maxDist = 0.0f;
+    float speed = 0.5f;
 
     Node* basement = nullptr;
     Node* office_left = nullptr;
@@ -24,6 +25,9 @@ public:
 
     void Update() override;
     void Log();
+    void LogPos() {
+        std::cout << name << " X: " << positionM.x << " Y: " << positionM.y << " Z: " << positionM.z << std::endl;
+    }
     Springtrap();
     ~Springtrap();
 };

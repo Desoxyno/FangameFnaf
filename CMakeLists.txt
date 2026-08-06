@@ -25,7 +25,6 @@ add_executable(FnafFangame
     src/engine/gameobject.cpp
     src/utils/dropdown.cpp
     src/game/systems/animatronics/springtrap.cpp
-    src/game/systems/animatronics/animatronic.cpp
 )
 
 target_include_directories(FnafFangame PRIVATE

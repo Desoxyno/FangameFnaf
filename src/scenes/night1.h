@@ -36,8 +36,6 @@ private:
 
     Springtrap spring_trap;
 
-    std::vector<Animatronic*> animatronics;
-
     bool has_entered = false;
 
     int current_hour = 12;

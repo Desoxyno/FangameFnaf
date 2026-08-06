@@ -26,6 +26,10 @@ public:
 		} 
 	}
 
+	void LogPos() {
+		std::cout << name << " X: " << position.x << " Y: " << position.y << " Z: " << position.z << std::endl;
+	}
+
 	Node(std::string nameN, Vector3 pos) : gen(std::random_device{}()) {
 		this->name = nameN;
 		this->position = pos;
