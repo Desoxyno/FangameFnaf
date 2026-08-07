@@ -11,17 +11,22 @@ class Springtrap : public GameObject
 {
 
 public:
+
     ModelAnimation jumpscare_anim;
 
     Node* previous_node = nullptr;
     Node* current_node = nullptr;
     Node* next_node = nullptr;
 
-    float speed = 0.5f;
+    float speed = 1.0f;
 
-    Node* basement = nullptr;
-    Node* office_left = nullptr;
-    Node* office_front = nullptr;
+    Node* Basement_Entrance = nullptr;
+
+    Node* Office_Left = nullptr;
+    Node* Office_Front = nullptr;
+
+    Node* Hallway_Employees = nullptr;
+    Node* Hallway_Service = nullptr;
 
     void Update() override;
     void Log();

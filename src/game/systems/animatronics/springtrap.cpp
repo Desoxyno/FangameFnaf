@@ -43,27 +43,34 @@ void Springtrap::Log() {
 
 Springtrap::Springtrap() {
 
+    Basement_Entrance = new Node("Basement", {-24, 0, 0});
     
+    Office_Left = new Node("Office Left", {-3.5, 0, 0});
+    Office_Front = new Node("Office Front", {1.7, 0, -2.4});
 
-    basement = new Node("Basement", {-24, 0, 0});
-    
-    office_left = new Node("Office Left", {-3.5, 0, 0});
-    office_front = new Node("Office Front", {1.7, 0, -2.4});
+    Hallway_Employees = new Node("Hallway Employees", {-21, 0, 0.3});
+    Hallway_Service = new Node("Hallway Service", {-10, 0, 0.3});
 
-    basement->neighbors_nodes.push_back(office_left);
-    basement->neighbors_nodes.push_back(office_front);
+    Basement_Entrance->AddNeighbors({Hallway_Employees});
 
-    office_front->neighbors_nodes.push_back(basement);
-    office_left->neighbors_nodes.push_back(basement);
+    Hallway_Employees->AddNeighbors({Basement_Entrance, Hallway_Service});
 
-    previous_node = basement;
-    current_node = basement;
+    Hallway_Service->AddNeighbors({Hallway_Employees, Office_Left});
+
+    Office_Left->AddNeighbors({Hallway_Service});
+
+    previous_node = Basement_Entrance;
+    current_node = Basement_Entrance;
 
     next_node = current_node->search_next_node();
+
+    positionM = Basement_Entrance->position;
 };
 
 Springtrap::~Springtrap() {
-    delete basement;
-    delete office_left;
-    delete office_front;
+    delete Basement_Entrance;
+    delete Office_Left;
+    delete Office_Front;
+    delete Hallway_Employees;
+    delete Hallway_Service;
 };

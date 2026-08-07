@@ -26,6 +26,12 @@ public:
 		} 
 	}
 
+	void AddNeighbors(std::vector<Node*> NodeA) {
+		for (Node* nodeN : NodeA) {
+			neighbors_nodes.push_back(nodeN);
+		}
+	}
+
 	void LogPos() {
 		std::cout << name << " X: " << position.x << " Y: " << position.y << " Z: " << position.z << std::endl;
 	}
