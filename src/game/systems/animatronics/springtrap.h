@@ -18,6 +18,8 @@ public:
     Node* current_node = nullptr;
     Node* next_node = nullptr;
 
+    std::vector<Node*> all_nodes;
+
     float speed = 1.0f;
 
     Node* Basement_Entrance = nullptr;

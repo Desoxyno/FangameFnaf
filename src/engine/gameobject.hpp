@@ -9,6 +9,16 @@ class GameObject
 {
 public:
     std::string name;
+
+    enum class ObjectType {
+        Generic,
+        Springtrap,
+        Camera, 
+        Door
+    };
+
+    ObjectType type = ObjectType::Generic;
+    
     Model model;
     BoundingBox bounds;
     ModelAnimation* animations = nullptr;

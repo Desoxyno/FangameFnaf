@@ -43,13 +43,15 @@ void Springtrap::Log() {
 
 Springtrap::Springtrap() {
 
-    Basement_Entrance = new Node("Basement", {-24, 0, 0});
-    
-    Office_Left = new Node("Office Left", {-3.5, 0, 0});
-    Office_Front = new Node("Office Front", {1.7, 0, -2.4});
+    type = ObjectType::Springtrap;
 
-    Hallway_Employees = new Node("Hallway Employees", {-21, 0, 0.3});
-    Hallway_Service = new Node("Hallway Service", {-10, 0, 0.3});
+    Basement_Entrance = new Node("Basement", {-24, 1, 0.3});
+    
+    Office_Left = new Node("Office Left", {-3.5, 1, 0.3});
+    Office_Front = new Node("Office Front", {1.7, 1, -2.4});
+
+    Hallway_Employees = new Node("Hallway Employees", {-21, 1, 0.3});
+    Hallway_Service = new Node("Hallway Service", {-10, 1, 0.3});
 
     Basement_Entrance->AddNeighbors({Hallway_Employees});
 
@@ -65,6 +67,12 @@ Springtrap::Springtrap() {
     next_node = current_node->search_next_node();
 
     positionM = Basement_Entrance->position;
+
+    all_nodes.push_back(Basement_Entrance);
+    all_nodes.push_back(Office_Left);
+    all_nodes.push_back(Office_Front);
+    all_nodes.push_back(Hallway_Employees);
+    all_nodes.push_back(Hallway_Service);
 };
 
 Springtrap::~Springtrap() {

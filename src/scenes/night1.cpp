@@ -7,6 +7,7 @@
 #include "mainmenu.h"
 #include "utils/corefunc.h"
 #include "utils/global_variable.h"
+#include "engine/gameobject.hpp"
 
 void Night1::Enter()
 {
@@ -31,6 +32,7 @@ void Night1::Enter()
 
     preparingModels(paths, noms, scene_objects);
     scene_objects.push_back(&tablet);
+    scene_objects.push_back(&spring_trap);
 }
 
 PlayerCamera& Night1::GetCamera()

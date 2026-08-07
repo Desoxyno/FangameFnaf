@@ -166,6 +166,8 @@ void DebugMode::Update()
             continue;
         }
 
+
+
         Matrix transform = object->GetTransform();
 
         for (int i = 0; i < object->model.meshCount; i++)
@@ -211,6 +213,25 @@ void DebugMode::Draw()
 
     level_menu.Draw();
 
+    BeginMode3D(current_scene->GetCamera().camera);
+
+            for (GameObject* object : current_scene->scene_objects)
+    { 
+            if (object->type == GameObject::ObjectType::Springtrap) {
+
+                Springtrap* spring = static_cast<Springtrap*>(object);
+                for (auto& node : spring->all_nodes) {
+                    DrawCube(node->position, 0.5f, 0.5f, 0.5f, RED);
+                    for (auto& Nnode : node->neighbors_nodes) {
+                        DrawLine3D(node->position, Nnode->position, GREEN);
+                    }
+                    
+                }
+        }
+    }
+
+    EndMode3D();
+
     if (!selected_object || !current_scene)
     {
         return;
@@ -239,6 +260,8 @@ void DebugMode::Draw()
     DrawText(scale.c_str(), 10, 140, 20, RAYWHITE);
 
     BeginMode3D(current_scene->GetCamera().camera);
+
+
 
     selected_object->DrawBounds();
 
