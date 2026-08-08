@@ -32,6 +32,7 @@ public:
     Vector3 scaleM = {1.0f, 1.0f, 1.0f};
     Vector3 pivotOffset = {0, 0, 0};
     float animFrameSpeed = 1;
+
     Matrix GetTransform() const
     {
         Matrix translation = MatrixTranslate(positionM.x, positionM.y, positionM.z);
@@ -53,6 +54,5 @@ public:
     virtual void Draw();
     virtual void Update();
     virtual void Exit();
-    GameObject() {box = GetModelBoundingBox(model);};
     void DrawBounds();
 };
