@@ -12,7 +12,6 @@
 void Night1::Enter()
 {
     cam_system.InitializeCameras();
-    spring_trap.positionM = {0, 0, 0};
 
     starttime = GetTime();
     current_hour = 12;
@@ -111,6 +110,9 @@ void Night1::Draw()
 
     for (GameObject* object : scene_objects)
     {
+        if (!IsVisible(object, camera) && useOptimisations) {
+            continue;
+        }
         object->Draw();
     }
 

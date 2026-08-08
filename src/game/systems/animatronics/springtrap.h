@@ -20,7 +20,7 @@ public:
 
     std::vector<Node*> all_nodes;
 
-    float speed = 1.0f;
+    const float speed = 0.75f;
 
     Node* Basement_Entrance = nullptr;
 
@@ -29,6 +29,8 @@ public:
 
     Node* Hallway_Employees = nullptr;
     Node* Hallway_Service = nullptr;
+
+    Node* PartService = nullptr;
 
     void Update() override;
     void Log();

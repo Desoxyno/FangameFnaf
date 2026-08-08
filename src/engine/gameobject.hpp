@@ -11,16 +11,18 @@ public:
     std::string name;
 
     enum class ObjectType {
-        Generic,
+        Structure,
+        Object,
         Springtrap,
         Camera, 
         Door
     };
 
-    ObjectType type = ObjectType::Generic;
+    ObjectType type = ObjectType::Structure;
     
     Model model;
     BoundingBox bounds;
+    BoundingBox box;
     ModelAnimation* animations = nullptr;
     int animationCount = 0;
     int currentFrame = 0;
@@ -51,5 +53,6 @@ public:
     virtual void Draw();
     virtual void Update();
     virtual void Exit();
+    GameObject() {box = GetModelBoundingBox(model);};
     void DrawBounds();
 };

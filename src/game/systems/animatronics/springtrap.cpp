@@ -14,34 +14,27 @@ void Springtrap::Update()
 
     }
 
-    if (positionM == next_node->position)
+    if (positionM == Vector3{next_node->position.x, 0, next_node->position.z})
     {
         previous_node = current_node;
         current_node = next_node;
         next_node = previous_node->search_next_node();
         positionM = current_node->position;
-
-        if (timer == 0) {
-            std::cout << "\nChangement de node\n";
-        }
         
     }
-    positionM = Vector3MoveTowards(positionM, next_node->position, speed * GetFrameTime());
+    positionM = Vector3MoveTowards(positionM, {next_node->position.x, 0, next_node->position.z} , speed * GetFrameTime());
 
-    if (timer == 0) {
-    std::cout << "Springtrap bouge\n";
-    }
 };
 
 void Springtrap::Log() {
     current_node->LogPos();
     LogPos();
     next_node->LogPos();
-    current_node->Log();
-
 };
 
 Springtrap::Springtrap() {
+
+    this->positionM = {-24, 0, 0.3};
 
     type = ObjectType::Springtrap;
 
@@ -53,11 +46,15 @@ Springtrap::Springtrap() {
     Hallway_Employees = new Node("Hallway Employees", {-21, 1, 0.3});
     Hallway_Service = new Node("Hallway Service", {-10, 1, 0.3});
 
+    PartService = new Node("Parts & Service", {-10, 1, -6});
+
     Basement_Entrance->AddNeighbors({Hallway_Employees});
 
     Hallway_Employees->AddNeighbors({Basement_Entrance, Hallway_Service});
 
     Hallway_Service->AddNeighbors({Hallway_Employees, Office_Left});
+
+    PartService->AddNeighbors({Hallway_Service});
 
     Office_Left->AddNeighbors({Hallway_Service});
 
@@ -66,19 +63,16 @@ Springtrap::Springtrap() {
 
     next_node = current_node->search_next_node();
 
-    positionM = Basement_Entrance->position;
-
     all_nodes.push_back(Basement_Entrance);
     all_nodes.push_back(Office_Left);
     all_nodes.push_back(Office_Front);
     all_nodes.push_back(Hallway_Employees);
     all_nodes.push_back(Hallway_Service);
+    all_nodes.push_back(PartService);
 };
 
 Springtrap::~Springtrap() {
-    delete Basement_Entrance;
-    delete Office_Left;
-    delete Office_Front;
-    delete Hallway_Employees;
-    delete Hallway_Service;
+    for (Node* node : all_nodes) {
+        delete node;
+    }
 };

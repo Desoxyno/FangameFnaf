@@ -7,7 +7,7 @@
 class MainMenu : public Scene
 {
 private:
-    Rectangle play_btn = {15, 200, 150, 65};
+    const Rectangle play_btn = {15, 200, 150, 65};
     Light lights[1];
 
     GameObject office;

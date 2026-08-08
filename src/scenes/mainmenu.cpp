@@ -49,6 +49,9 @@ void MainMenu::Draw()
 
     for (GameObject* object : scene_objects)
     {
+        if (!IsVisible(object, camera) && useOptimisations) {
+            continue;
+        }
         object->Draw();
     }
 

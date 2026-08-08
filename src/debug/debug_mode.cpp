@@ -24,7 +24,6 @@ void DebugMode::Update()
         UpdateCamera(&camera.camera, CAMERA_FREE);
     }
 
-    // Changement de scène depuis le menu debug
     if (level_menu.Update())
     {
         switch (level_menu.selected)
@@ -215,11 +214,14 @@ void DebugMode::Draw()
 
     BeginMode3D(current_scene->GetCamera().camera);
 
-            for (GameObject* object : current_scene->scene_objects)
+    for (GameObject* object : current_scene->scene_objects)
     { 
             if (object->type == GameObject::ObjectType::Springtrap) {
 
                 Springtrap* spring = static_cast<Springtrap*>(object);
+
+                DrawCube({spring->positionM.x, 1, spring->positionM.z} , 0.25f, 0.25f, 0.25f, RED);
+
                 for (auto& node : spring->all_nodes) {
                     DrawCube(node->position, 0.5f, 0.5f, 0.5f, RED);
                     for (auto& Nnode : node->neighbors_nodes) {
