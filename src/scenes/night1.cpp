@@ -29,7 +29,7 @@ void Night1::Enter()
 
     has_entered = true;
 
-    preparingModels(paths, noms, scene_objects);
+    preparingModels(paths, tex_paths, noms, scene_objects);
     scene_objects.push_back(&tablet);
 }
 

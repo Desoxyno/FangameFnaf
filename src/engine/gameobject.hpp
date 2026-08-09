@@ -20,6 +20,12 @@ public:
     Vector3 scaleM = {1.0f, 1.0f, 1.0f};
     Vector3 pivotOffset = {0, 0, 0};
     float animFrameSpeed = 1;
+
+    Texture2D albedo;
+    Texture2D normal;
+    Texture2D roughness;
+    Texture2D ao;
+
     Matrix GetTransform() const
     {
         Matrix translation = MatrixTranslate(positionM.x, positionM.y, positionM.z);

@@ -11,6 +11,8 @@
 
 void MainMenu::Enter()
 {
+    roboto = LoadFont("../assets/fonts/Roboto/static/Roboto-Regular.ttf");
+
     ResetLights();
     lights[0].enabled = true;
     lights[0] = CreateLight(LIGHT_POINT, (Vector3) {0.0f, 8.5f, -2.0f}, Vector3Zero(), WHITE, *shader);
@@ -18,7 +20,7 @@ void MainMenu::Enter()
     camera.changePosition((Vector3) {1.77f, 2.3f, 2.0f});
     camera.changeTarget((Vector3) {-1.0f, 0.85f, -4.2f});
 
-    preparingModels(paths, noms, scene_objects);
+    preparingModels(paths, tex_paths, noms, scene_objects);
 }
 
 PlayerCamera& MainMenu::GetCamera()
@@ -54,11 +56,11 @@ void MainMenu::Draw()
 
     EndMode3D();
 
-    DrawRectangleRec(play_btn, {0, 0, 0, 0});
+    DrawRectangleRec(play_btn, {50, 0, 0, 0});
 
-    DrawText("FNaF: The Last Seal", 5, 5, 80, DARKGRAY);
+    DrawTextEx(roboto, "FNaF: The Last Seal", {5, 5}, 60, 2, WHITE);
 
-    DrawText("Play", 20, 200, 60, DARKGRAY);
+    DrawTextEx(roboto, "Play", {15, 200}, 60, 2, WHITE);
 
     if (InDebug)
     {
