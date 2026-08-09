@@ -25,7 +25,6 @@ add_executable(FnafFangame
     src/engine/gameobject.cpp
     src/utils/dropdown.cpp
     src/game/systems/animatronics/springtrap.cpp
-    src/game/systems/animatronics/animatronic.cpp
 )
 
 target_include_directories(FnafFangame PRIVATE
@@ -37,7 +36,14 @@ if(WIN32)
         dependencies/raylib-win/include)
     target_link_directories(FnafFangame PRIVATE
         dependencies/raylib-win/lib)
-else()
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    target_include_directories(FnafFangame PRIVATE
+        dependencies/raylib-macos/include)
+    target_link_directories(FnafFangame PRIVATE
+        dependencies/raylib-macos/lib)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_include_directories(FnafFangame PRIVATE
         dependencies/raylib-li/include)
     target_link_directories(FnafFangame PRIVATE
@@ -49,6 +55,10 @@ target_link_libraries(FnafFangame PRIVATE raylib)
 if(WIN32)
     target_link_libraries(FnafFangame PRIVATE opengl32 gdi32 winmm)
     target_link_options(FnafFangame PRIVATE -static-libgcc -static-libstdc++ -static)
-else()
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(FnafFangame PRIVATE X11)
+endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+target_link_libraries(FnafFangame PRIVATE ${COCOA_LIBRARY})
 endif()

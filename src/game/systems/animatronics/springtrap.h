@@ -1,21 +1,42 @@
 #pragma once
 
 #include <array>
+#include <random>
 
-#include "animatronic.h"
+#include "engine/gameobject.hpp"
+#include "node.h"
 #include "raylib.h"
 
-class Springtrap : public Animatronic
+class Springtrap : public GameObject
 {
+
 public:
+
     ModelAnimation jumpscare_anim;
-    int current_point = 0;
-    std::array<Vector3, 2> path_points = {{{15.0f, 11.0f, 0.0f}, {-15.0f, -11.0f, 0.0f}}};
 
-    Vector3 current_pos = {0, 0, 0};
-    Vector3 next_pos = {0, 0, 0};
+    Node* previous_node = nullptr;
+    Node* current_node = nullptr;
+    Node* next_node = nullptr;
 
-    float maxDist = 0.0f;
+    std::vector<Node*> all_nodes;
+
+    const float speed = 0.75f;
+
+    Node* Basement_Entrance = nullptr;
+
+    Node* Office_Left = nullptr;
+    Node* Office_Front = nullptr;
+
+    Node* Hallway_Employees = nullptr;
+    Node* Hallway_Service = nullptr;
+
+    Node* PartService = nullptr;
 
     void Update() override;
+    void Log();
+    void LogPos() {
+        std::cout << name << " X: " << positionM.x << " Y: " << positionM.y << " Z: " << positionM.z << std::endl;
+    }
+    Springtrap();
+    ~Springtrap();
 };

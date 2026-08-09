@@ -1,6 +1,10 @@
 #pragma once
 
 #include "raylib.h"
+#include "engine/gameobject.hpp"
+#include "engine/player_camera.hpp"
+#include "raymath.h"
 
-bool IsButtonClicked(Rectangle rect);
-bool IsButtonHovered(Rectangle rect);
+const bool IsButtonClicked(Rectangle rect);
+const bool IsButtonHovered(Rectangle rect);
+const bool IsVisible(GameObject* object, PlayerCamera camera);

@@ -7,11 +7,11 @@
 #include "mainmenu.h"
 #include "utils/corefunc.h"
 #include "utils/global_variable.h"
+#include "engine/gameobject.hpp"
 
 void Night1::Enter()
 {
     cam_system.InitializeCameras();
-    spring_trap.positionM = {0, 0, 0};
 
     starttime = GetTime();
     current_hour = 12;
@@ -31,6 +31,7 @@ void Night1::Enter()
 
     preparingModels(paths, tex_paths, noms, scene_objects);
     scene_objects.push_back(&tablet);
+    scene_objects.push_back(&spring_trap);
 }
 
 PlayerCamera& Night1::GetCamera()
@@ -40,6 +41,10 @@ PlayerCamera& Night1::GetCamera()
 
 void Night1::Update()
 {
+
+    spring_trap.Update();
+
+
     if (tablet.currentFrame == 34)
     {
         InCams = true;
@@ -105,6 +110,9 @@ void Night1::Draw()
 
     for (GameObject* object : scene_objects)
     {
+        if (!IsVisible(object, camera) && useOptimisations) {
+            continue;
+        }
         object->Draw();
     }
 
@@ -133,6 +141,8 @@ void Night1::Draw()
     int textWidth = MeasureText(text.c_str(), fontSize);
 
     DrawText(text.c_str(), GetScreenWidth() - textWidth - 20, GetScreenHeight() - fontSize - 20, fontSize, RAYWHITE);
+
+    DrawFPS(GetScreenWidth() - 90, 5);
 }
 
 void Night1::Exit()

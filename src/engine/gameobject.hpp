@@ -9,8 +9,21 @@ class GameObject
 {
 public:
     std::string name;
+
+    enum class ObjectType
+    {
+        Structure,
+        Object,
+        Springtrap,
+        Camera,
+        Door
+    };
+
+    ObjectType type = ObjectType::Structure;
+
     Model model;
     BoundingBox bounds;
+    BoundingBox box;
     ModelAnimation* animations = nullptr;
     int animationCount = 0;
     int currentFrame = 0;

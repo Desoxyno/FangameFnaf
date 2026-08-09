@@ -19,13 +19,11 @@ void DebugMode::Update()
     PlayerCamera& camera = current_scene->GetCamera();
     auto& scene_objects = current_scene->scene_objects;
 
-    // Caméra libre uniquement avec clic droit
     if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
     {
         UpdateCamera(&camera.camera, CAMERA_FREE);
     }
 
-    // Changement de scène depuis le menu debug
     if (level_menu.Update())
     {
         switch (level_menu.selected)
@@ -43,7 +41,6 @@ void DebugMode::Update()
         return;
     }
 
-    // Changement Position / Rotation
     if (IsKeyPressed(KEY_W))
     {
         switch (mode)
@@ -62,7 +59,6 @@ void DebugMode::Update()
         }
     }
 
-    // Changement axe
     if (IsKeyPressed(KEY_X))
     {
         switch (submode)
@@ -81,7 +77,6 @@ void DebugMode::Update()
         }
     }
 
-    // Modification objet sélectionné
     if (selected_object)
     {
         float direction = 0;
@@ -152,7 +147,6 @@ void DebugMode::Update()
         }
     }
 
-    // Sélection objet
     if (!IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
         return;
@@ -170,6 +164,8 @@ void DebugMode::Update()
         {
             continue;
         }
+
+
 
         Matrix transform = object->GetTransform();
 
@@ -196,8 +192,6 @@ void DebugMode::Draw()
 {
     DrawText("Debug Mode", 10, 10, 20, RAYWHITE);
 
-    DrawFPS(5, 35);
-
     DrawText(ModeToString(mode).c_str(), 10, 160, 20, RAYWHITE);
 
     DrawText(SubModeToString(submode).c_str(), 10, 180, 20, RAYWHITE);
@@ -217,6 +211,28 @@ void DebugMode::Draw()
     DrawText(cam_pos.c_str(), 10, 240, 20, RAYWHITE);
 
     level_menu.Draw();
+
+    BeginMode3D(current_scene->GetCamera().camera);
+
+    for (GameObject* object : current_scene->scene_objects)
+    { 
+            if (object->type == GameObject::ObjectType::Springtrap) {
+
+                Springtrap* spring = static_cast<Springtrap*>(object);
+
+                DrawCube({spring->positionM.x, 1, spring->positionM.z} , 0.25f, 0.25f, 0.25f, RED);
+
+                for (auto& node : spring->all_nodes) {
+                    DrawCube(node->position, 0.5f, 0.5f, 0.5f, RED);
+                    for (auto& Nnode : node->neighbors_nodes) {
+                        DrawLine3D(node->position, Nnode->position, GREEN);
+                    }
+                    
+                }
+        }
+    }
+
+    EndMode3D();
 
     if (!selected_object || !current_scene)
     {
@@ -246,6 +262,8 @@ void DebugMode::Draw()
     DrawText(scale.c_str(), 10, 140, 20, RAYWHITE);
 
     BeginMode3D(current_scene->GetCamera().camera);
+
+
 
     selected_object->DrawBounds();
 
