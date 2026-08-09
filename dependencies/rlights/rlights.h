@@ -33,6 +33,8 @@
 #ifndef RLIGHTS_H
 #define RLIGHTS_H
 
+#include "raylib.h"
+
 //----------------------------------------------------------------------------------
 // Defines and Macros
 //----------------------------------------------------------------------------------
@@ -76,13 +78,15 @@ extern "C"
     //----------------------------------------------------------------------------------
     // Module Functions Declaration
     //----------------------------------------------------------------------------------
+
+    void ResetLights();
+
     Light CreateLight(int type,
                       Vector3 position,
                       Vector3 target,
                       Color color,
                       Shader shader);  // Create a light and get shader locations
     void UpdateLightValues(Shader shader, Light light);  // Send light properties to shader
-    void ResetLights();
 
 #ifdef __cplusplus
 }
@@ -123,10 +127,12 @@ static int lightsCount = 0;  // Current amount of created lights
 //----------------------------------------------------------------------------------
 // Module Functions Definition
 //----------------------------------------------------------------------------------
+
 void ResetLights()
 {
     lightsCount = 0;
 }
+
 // Create a light and get shader locations
 Light CreateLight(int type, Vector3 position, Vector3 target, Color color, Shader shader)
 {

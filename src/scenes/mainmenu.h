@@ -1,8 +1,16 @@
 #pragma once
 
+#include <memory>
+
+#include "config/config.h"
 #include "engine/gameobject.hpp"
 #include "engine/player_camera.hpp"
 #include "engine/scene.hpp"
+#include "game/gamestate.h"
+#include "night1.h"
+#include "rlights.h"
+#include "utils/corefunc.h"
+#include "utils/global_variable.h"
 
 class MainMenu : public Scene
 {
@@ -32,6 +40,13 @@ private:
                                                         "../assets/textures/floor/tiles_ao.png"}};
     std::vector<std::string> noms =
         {"Office", "Cardboard Boxes", "Office Hallway", "Parts & Service", "Storage Room", "Floor"};
+
+    std::vector<GameObject::ObjectType> types = {GameObject::ObjectType::Structure,
+                                                 GameObject::ObjectType::Object,
+                                                 GameObject::ObjectType::Structure,
+                                                 GameObject::ObjectType::Structure,
+                                                 GameObject::ObjectType::Structure,
+                                                 GameObject::ObjectType::Structure};
 
     bool has_entered = false;
     PlayerCamera camera;

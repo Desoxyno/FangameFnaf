@@ -39,7 +39,8 @@ public:
     void preparingModels(std::vector<std::string> paths,
                          std::vector<std::vector<std::string>> tex_paths,
                          std::vector<std::string> names,
-                         std::vector<GameObject*>& scene_objects)
+                         std::vector<GameObject*>& scene_objects,
+                         std::vector<GameObject::ObjectType> types)
     {
         for (size_t i = 0; i < paths.size(); i++)
         {
@@ -56,6 +57,7 @@ public:
 
             newObject->model = LoadModel(paths[i].c_str());
             newObject->name = names[i];
+            newObject->type = types[i];
 
             if (tex_paths[i][0] != "")
             {

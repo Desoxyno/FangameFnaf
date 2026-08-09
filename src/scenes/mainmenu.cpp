@@ -1,14 +1,5 @@
 #include "mainmenu.h"
 
-#include <memory>
-
-#include "config/config.h"
-#include "engine/scene.hpp"
-#include "game/gamestate.h"
-#include "night1.h"
-#include "utils/corefunc.h"
-#include "utils/global_variable.h"
-
 void MainMenu::Enter()
 {
     roboto = LoadFont("../assets/fonts/Roboto/static/Roboto-Regular.ttf");
@@ -20,7 +11,7 @@ void MainMenu::Enter()
     camera.changePosition((Vector3) {1.77f, 2.3f, 2.0f});
     camera.changeTarget((Vector3) {-1.0f, 0.85f, -4.2f});
 
-    preparingModels(paths, tex_paths, noms, scene_objects);
+    preparingModels(paths, tex_paths, noms, scene_objects, types);
 }
 
 PlayerCamera& MainMenu::GetCamera()
@@ -51,7 +42,8 @@ void MainMenu::Draw()
 
     for (GameObject* object : scene_objects)
     {
-        if (!IsVisible(object, camera) && useOptimisations) {
+        if (!IsVisible(object, camera) && useOptimisations)
+        {
             continue;
         }
         object->Draw();

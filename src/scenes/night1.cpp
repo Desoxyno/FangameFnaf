@@ -1,14 +1,5 @@
 #include "night1.h"
 
-#include <typeinfo>
-
-#include "config/config.h"
-#include "engine/scene.hpp"
-#include "mainmenu.h"
-#include "utils/corefunc.h"
-#include "utils/global_variable.h"
-#include "engine/gameobject.hpp"
-
 void Night1::Enter()
 {
     cam_system.InitializeCameras();
@@ -29,7 +20,7 @@ void Night1::Enter()
 
     has_entered = true;
 
-    preparingModels(paths, tex_paths, noms, scene_objects);
+    preparingModels(paths, tex_paths, noms, scene_objects, types);
     scene_objects.push_back(&tablet);
     scene_objects.push_back(&spring_trap);
 }
@@ -41,9 +32,7 @@ PlayerCamera& Night1::GetCamera()
 
 void Night1::Update()
 {
-
     spring_trap.Update();
-
 
     if (tablet.currentFrame == 34)
     {
@@ -110,7 +99,8 @@ void Night1::Draw()
 
     for (GameObject* object : scene_objects)
     {
-        if (!IsVisible(object, camera) && useOptimisations) {
+        if (!IsVisible(object, camera) && useOptimisations)
+        {
             continue;
         }
         object->Draw();
