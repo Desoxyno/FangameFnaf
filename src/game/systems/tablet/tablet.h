@@ -17,6 +17,9 @@ private:
 
     RenderTexture2D screentexture{};
 
+    R3D_AnimationPlayer anim_player;
+    R3D_AnimationLib anim_lib;
+
     float anim_timer = 0.0f;
 
     Tablet(const Tablet&) = delete;
@@ -27,11 +30,7 @@ public:
     void Exit() override;
 
     void Update() override;
-    void Draw() override;
+    void Draw(PlayerCamera& camera) override;
 
     void Switch();
-
-    bool IsOpen() const;
-
-    void ApplyShader(Shader* shader);
 };

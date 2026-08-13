@@ -8,6 +8,7 @@
 
 #define RLIGHTS_IMPLEMENTATION
 #include <memory>
+#include <r3d/r3d.h>
 
 #include "rlights.h"
 
@@ -16,6 +17,7 @@ int main()
     SetConfigFlags(FLAG_MSAA_4X_HINT);
 
     InitWindow(1700, 800, "Fangame FNaF");
+    R3D_Init(1700, 800);
 
     InitAudioDevice();
 
@@ -92,6 +94,7 @@ int main()
 
     UnloadShader(shader);
 
+    R3D_Close();
     CloseWindow();
 
     return 0;

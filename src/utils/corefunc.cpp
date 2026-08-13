@@ -10,34 +10,11 @@ const bool IsButtonHovered(Rectangle rect)
     return CheckCollisionPointRec(GetMousePosition(), rect);
 }
 
-const bool IsVisible(GameObject* object, PlayerCamera camera)
+bool IsVisible(R3D_Mesh mesh, Matrix transform, PlayerCamera& camera)
 {
-    if (object->type == GameObject::ObjectType::Structure)
-    {
-        return true;
-    }
-    BoundingBox box = GetModelBoundingBox(object->model);
+    R3D_Frustum frustum = R3D_GetFrustum();
 
-    Vector3 center = {(box.min.x + box.max.x) / 2.0f, (box.min.y + box.max.y) / 2.0f, (box.min.z + box.max.z) / 2.0f};
+    R3D_OrientedBox box = R3D_GetOrientedBox(mesh.aabb, transform);
 
-    float distance = Vector3Distance(center, camera.camera.position);
-
-    if (distance > 50)
-    {
-        return false;
-    }
-
-    Vector3 toObject = Vector3Normalize(Vector3Subtract(center, camera.camera.position));
-
-    Vector3 cameraDirection = Vector3Normalize(Vector3Subtract(camera.camera.target, camera.camera.position));
-
-    float dot = Vector3DotProduct(cameraDirection, toObject);
-    float halfFov = (camera.camera.fovy * DEG2RAD) / 2.0f;
-
-    if (dot < cosf(halfFov))
-    {
-        return false;
-    }
-
-    return true;
+    return R3D_FrustumIntersectsOrientedBox(&frustum, box);
 }

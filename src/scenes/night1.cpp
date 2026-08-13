@@ -14,8 +14,6 @@ void Night1::Enter()
     camera.changePosition({-0.6f, 1.4f, -0.41f});
     camera.changeTarget({5.4f, -10.6f, -1000.0f});
 
-    tablet.ApplyShader(shader);
-
     cam_btn = {0.0f, (float) GetScreenHeight() - 80.0f, (float) GetScreenWidth(), 80.0f};
 
     has_entered = true;
@@ -99,11 +97,7 @@ void Night1::Draw()
 
     for (GameObject* object : scene_objects)
     {
-        if (!IsVisible(object, camera) && useOptimisations)
-        {
-            continue;
-        }
-        object->Draw();
+        object->Draw(camera);
     }
 
     EndMode3D();

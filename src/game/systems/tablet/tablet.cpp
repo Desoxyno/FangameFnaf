@@ -17,34 +17,26 @@ Tablet::Tablet()
 
     state = State::Closed;
 
-    model = LoadModel("../assets/models/Office/camera_monitor.glb");
-    model.transform = MatrixIdentity();
-    CalculatePivot();
+    model = R3D_LoadModel("../assets/models/Office/camera_monitor.glb");
 
-    animations = LoadModelAnimations("../assets/models/Office/camera_monitor.glb", &animationCount);
+    anim_lib = R3D_LoadAnimationLib("../assets/models/Office/camera_monitor.glb");
+
+    anim_player = R3D_LoadAnimationPlayer(model.skeleton, anim_lib);
+
+    CalculatePivot();
 
     if (animations == nullptr || animationCount == 0)
     {
         TraceLog(LOG_ERROR, "Tablet animation loading failed");
         return;
     }
-
-    if (!IsModelAnimationValid(model, animations[0]))
-    {
-        TraceLog(LOG_ERROR, "Tablet animation incompatible with model");
-    }
-
-    TraceLog(LOG_INFO, "Tablet animation loaded (%d frames)", animations[0].keyframeCount);
 }
 
 void Tablet::Exit()
 {
-    if (animations != nullptr && animationCount > 0)
-    {
-        UnloadModelAnimations(animations, animationCount);
-    }
-
-    UnloadModel(model);
+    R3D_UnloadAnimationPlayer(anim_player);
+    R3D_UnloadAnimationLib(anim_lib);
+    R3D_UnloadModel(model, true);
 }
 
 void Tablet::Switch()
@@ -52,89 +44,26 @@ void Tablet::Switch()
     if (state == State::Closed)
     {
         state = State::Opening;
+
+        R3D_SetAnimationTime(&anim_player, 0, 0.0f);
+        R3D_SetAnimationSpeed(&anim_player, 0, 1.0f);
+        R3D_PlayAnimation(&anim_player, 0);
     }
-    if (state == State::Open)
+    else if (state == State::Open)
     {
         state = State::Closing;
+
+        R3D_SetAnimationSpeed(&anim_player, 0, -1.0f);
+        R3D_PlayAnimation(&anim_player, 0);
     }
 }
 
 void Tablet::Update()
 {
-    if (animations == nullptr || animationCount == 0)
-    {
-        return;
-    }
-
-    ModelAnimation& animation = animations[0];
-
-    if (state == State::Closed)
-    {
-        currentFrame = 0;
-    }
-
-    if (state == State::Open)
-    {
-        currentFrame = 34;
-    }
-
-    if (state == State::Opening || state == State::Closing)
-    {
-        anim_timer += GetFrameTime();
-
-        if (anim_timer >= animFrameSpeed)
-        {
-            anim_timer = 0.0f;
-
-            if (state == State::Opening)
-            {
-                currentFrame++;
-
-                if (currentFrame >= animation.keyframeCount - 2)
-                {
-                    currentFrame = animation.keyframeCount - 2;
-                    state = State::Open;
-                }
-            }
-            else if (state == State::Closing)
-            {
-                currentFrame--;
-
-                if (currentFrame <= 0)
-                {
-                    currentFrame = 0;
-                    state = State::Closed;
-                }
-            }
-        }
-    }
-
-    UpdateModelAnimation(model, animation, currentFrame);
+    R3D_UpdateAnimationPlayer(&anim_player, GetFrameTime());
 }
 
-void Tablet::Draw()
+void Tablet::Draw(PlayerCamera& camera)
 {
-    if (currentFrame == 1 || currentFrame == 0)
-    {
-        return;
-    }
-    Matrix transform = GetTransform();
-
-    for (int i = 0; i < model.meshCount; i++)
-    {
-        DrawMesh(model.meshes[i], model.materials[model.meshMaterial[i]], transform);
-    }
-}
-
-void Tablet::ApplyShader(Shader* shader)
-{
-    if (shader == nullptr)
-    {
-        return;
-    }
-
-    for (int i = 0; i < model.materialCount; i++)
-    {
-        model.materials[i].shader = *shader;
-    }
+    R3D_DrawAnimatedModelPro(model, anim_player, GetTransform());
 }

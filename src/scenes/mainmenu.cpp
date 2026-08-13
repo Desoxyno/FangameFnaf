@@ -4,9 +4,9 @@ void MainMenu::Enter()
 {
     roboto = LoadFont("../assets/fonts/Roboto/static/Roboto-Regular.ttf");
 
-    ResetLights();
-    lights[0].enabled = true;
-    lights[0] = CreateLight(LIGHT_POINT, (Vector3) {0.0f, 8.5f, -2.0f}, Vector3Zero(), WHITE, *shader);
+    light = R3D_CreateOmniLight((Vector3) {1.0f, 2.5f, -1.0f}, 10.0f, WHITE, 0.1f);
+
+    shadowMap = R3D_LoadShadowMap(R3D_LIGHT_OMNI);
 
     camera.changePosition((Vector3) {1.77f, 2.3f, 2.0f});
     camera.changeTarget((Vector3) {-1.0f, 0.85f, -4.2f});
@@ -36,20 +36,18 @@ void MainMenu::Update()
 
 void MainMenu::Draw()
 {
-    BeginMode3D(camera.camera);
+    R3D_Begin(camera.camera);
+
+    R3D_PushLightEx(light, shadowMap, true);
 
     DrawGrid(20, 10.0f);
 
     for (GameObject* object : scene_objects)
     {
-        if (!IsVisible(object, camera) && useOptimisations)
-        {
-            continue;
-        }
-        object->Draw();
+        object->Draw(camera);
     }
 
-    EndMode3D();
+    R3D_End();
 
     DrawRectangleRec(play_btn, {50, 0, 0, 0});
 
@@ -64,7 +62,6 @@ void MainMenu::Draw()
 
     DrawFPS(GetScreenWidth() - 90, 5);
 }
-
 void MainMenu::Exit()
 {
     for (GameObject* object : scene_objects)

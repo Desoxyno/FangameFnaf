@@ -165,20 +165,36 @@ void DebugMode::Update()
             continue;
         }
 
-
+        BoundingBox box = object->model.aabb;
 
         Matrix transform = object->GetTransform();
 
-        for (int i = 0; i < object->model.meshCount; i++)
-        {
-            RayCollision hit = GetRayCollisionMesh(ray, object->model.meshes[i], transform);
+        Vector3 corners[8] = {{box.min.x, box.min.y, box.min.z},
+                              {box.max.x, box.min.y, box.min.z},
+                              {box.min.x, box.max.y, box.min.z},
+                              {box.max.x, box.max.y, box.min.z},
+                              {box.min.x, box.min.y, box.max.z},
+                              {box.max.x, box.min.y, box.max.z},
+                              {box.min.x, box.max.y, box.max.z},
+                              {box.max.x, box.max.y, box.max.z}};
 
-            if (hit.hit && hit.distance < closestDistance)
-            {
-                closestDistance = hit.distance;
-                collision = hit;
-                selected_object = object;
-            }
+        BoundingBox worldBox = {{FLT_MAX, FLT_MAX, FLT_MAX}, {-FLT_MAX, -FLT_MAX, -FLT_MAX}};
+
+        for (Vector3 corner : corners)
+        {
+            Vector3 p = Vector3Transform(corner, transform);
+
+            worldBox.min = Vector3Min(worldBox.min, p);
+            worldBox.max = Vector3Max(worldBox.max, p);
+        }
+
+        RayCollision hit = GetRayCollisionBox(ray, worldBox);
+
+        if (hit.hit && hit.distance < closestDistance)
+        {
+            closestDistance = hit.distance;
+            collision = hit;
+            selected_object = object;
         }
     }
 
@@ -215,20 +231,21 @@ void DebugMode::Draw()
     BeginMode3D(current_scene->GetCamera().camera);
 
     for (GameObject* object : current_scene->scene_objects)
-    { 
-            if (object->type == GameObject::ObjectType::Springtrap) {
+    {
+        if (object->type == GameObject::ObjectType::Springtrap)
+        {
+            Springtrap* spring = static_cast<Springtrap*>(object);
 
-                Springtrap* spring = static_cast<Springtrap*>(object);
+            DrawCube({spring->positionM.x, 1, spring->positionM.z}, 0.25f, 0.25f, 0.25f, RED);
 
-                DrawCube({spring->positionM.x, 1, spring->positionM.z} , 0.25f, 0.25f, 0.25f, RED);
-
-                for (auto& node : spring->all_nodes) {
-                    DrawCube(node->position, 0.5f, 0.5f, 0.5f, RED);
-                    for (auto& Nnode : node->neighbors_nodes) {
-                        DrawLine3D(node->position, Nnode->position, GREEN);
-                    }
-                    
+            for (auto& node : spring->all_nodes)
+            {
+                DrawCube(node->position, 0.5f, 0.5f, 0.5f, RED);
+                for (auto& Nnode : node->neighbors_nodes)
+                {
+                    DrawLine3D(node->position, Nnode->position, GREEN);
                 }
+            }
         }
     }
 
@@ -262,8 +279,6 @@ void DebugMode::Draw()
     DrawText(scale.c_str(), 10, 140, 20, RAYWHITE);
 
     BeginMode3D(current_scene->GetCamera().camera);
-
-
 
     selected_object->DrawBounds();
 

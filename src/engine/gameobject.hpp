@@ -1,9 +1,15 @@
 #pragma once
 
+#include <cfloat>
+#include <cmath>
 #include <string>
 
+#include "engine/player_camera.hpp"
+#include "r3d/r3d.h"
 #include "raylib.h"
 #include "raymath.h"
+#include "utils/corefunc.h"
+#include "utils/global_variable.h"
 
 class GameObject
 {
@@ -21,9 +27,9 @@ public:
 
     ObjectType type = ObjectType::Structure;
 
-    Model model;
-    BoundingBox bounds;
-    BoundingBox box;
+    R3D_Model model;
+    R3D_BoundingBox bounds;
+    R3D_BoundingBox box;
     ModelAnimation* animations = nullptr;
     int animationCount = 0;
     int currentFrame = 0;
@@ -36,8 +42,7 @@ public:
 
     Texture2D albedo;
     Texture2D normal;
-    Texture2D roughness;
-    Texture2D ao;
+    Texture2D orm;
 
     Matrix GetTransform() const
     {
@@ -53,11 +58,16 @@ public:
     }
     void CalculatePivot()
     {
-        BoundingBox box = GetModelBoundingBox(model);
+        const BoundingBox& box_plch = model.aabb;
 
-        pivotOffset = {(box.min.x + box.max.x) / 2.0f, (box.min.y + box.max.y) / 2.0f, (box.min.z + box.max.z) / 2.0f};
+        Vector3 center = Vector3Scale(Vector3Add(box_plch.min, box_plch.max), 0.5f);
+
+        Vector3 halfExtent = Vector3Scale(Vector3Subtract(box_plch.max, box_plch.min), 0.5f);
+
+        pivotOffset = center;
+        box = R3D_GetBoundingBox(center, halfExtent);
     }
-    virtual void Draw();
+    virtual void Draw(PlayerCamera& camera);
     virtual void Update();
     virtual void Exit();
     void DrawBounds();
