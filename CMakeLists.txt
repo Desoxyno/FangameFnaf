@@ -2,51 +2,36 @@ cmake_minimum_required(VERSION 3.20)
 
 project(FnafFangame VERSION 1.0.0 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE debug)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -march=native")
 
-set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(BUILD_GAMES OFF CACHE BOOL "" FORCE)
+set(DISCORD_SDK_ROOT "${CMAKE_SOURCE_DIR}/dependencies/discord_social_sdk")
+set(DISCORD_SDK_LIB_DIR "${DISCORD_SDK_ROOT}/lib/release")
 
-set(R3D_RAYLIB_VENDORED OFF CACHE BOOL "" FORCE)
-set(R3D_ASSIMP_VENDORED ON CACHE BOOL "" FORCE)
+set(DISCORD_ENABLED FALSE)
 
-add_subdirectory(dependencies/r3d)
+add_executable(FnafFangame main.cpp
+    includes/ennemies/springtrap/node.cpp)
 
-add_executable(FnafFangame
-    src/main.cpp
-
-    src/scenes/mainmenu.cpp
-    src/scenes/night1.cpp
-
-    src/engine/scenemanager.cpp
-    src/engine/shader.cpp
-    src/engine/gameobject.cpp
-
-    src/game/gamestate.cpp
-
-    src/audio/soundloader.cpp
-
-    src/utils/corefunc.cpp
-    src/utils/dropdown.cpp
-
-    src/debug/debug_mode.cpp
-
-    src/game/systems/camera/camera_system.cpp
-    src/game/systems/tablet/tablet.cpp
-    src/game/systems/animatronics/springtrap.cpp
-)
+target_include_directories(FnafFangame PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/includes)
 
 target_include_directories(FnafFangame PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/rlights
-    ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/r3d/include
+    "${DISCORD_SDK_ROOT}/include"
 )
 
-target_link_libraries(FnafFangame PRIVATE
-    raylib
-    r3d
+target_compile_definitions(FnafFangame PRIVATE
+    $<$<CONFIG:Debug>:DEBUG_BUILD>
+    DISCORD_ENABLED=$<BOOL:${DISCORD_ENABLED}>
 )
+
+if(WIN32)
+    set(DISCORD_SHARED_LIB "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.so")
+elseif(APPLE)
+    set(DISCORD_SHARED_LIB "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.dylib")
+endif()
+    set(DISCORD_SHARED_LIB "${DISCORD_SDK_LIB_DIR}/libdiscord_partner_sdk.so")
 
 if(WIN32)
 
@@ -54,6 +39,12 @@ if(WIN32)
         opengl32
         gdi32
         winmm
+        "${DISCORD_SDK_ROOT}/lib/release/libdiscord_partner_sdk.lib"
+    )
+
+    target_link_options(FnafFangame PRIVATE
+        -static-libgcc
+        -static-libstdc++ 
     )
 
 elseif(APPLE)
@@ -62,6 +53,26 @@ elseif(APPLE)
         "-framework Cocoa"
         "-framework IOKit"
         "-framework CoreVideo"
+        "${DISCORD_SDK_ROOT}/lib/release/libdiscord_partner_sdk.dylib"
     )
 
+elseif(UNIX)
+
+    target_link_libraries(FnafFangame PRIVATE
+        X11
+        "${DISCORD_SDK_ROOT}/lib/release/libdiscord_partner_sdk.so"
+    )
+    
+endif()
+
+target_link_libraries(FnafFangame PRIVATE
+    raylib
+)
+
+if(DISCORD_ENABLED)
+    add_custom_command(TARGET FnafFangame POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${DISCORD_SHARED_LIB}"
+        $<TARGET_FILE_DIR:FnafFangame>
+    )
 endif()

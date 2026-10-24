@@ -1,14 +1,4 @@
-# Fangame Fnaf
-
-## Projet 
-
-- Le projet est entièrement **open source** afin que les personnes souhaitant apprendre le développement de jeux puissent observer le code et s'en inspirer. Le code n'est cependant pas garanti comme étant parfait.
-
-## Description
-
-- Je m'appelle **Edgar**, j'ai 16 ans et en regardant tous ces fangames de Fnaf, j'ai décidé de m'y lancer. J'enchaînais les petits fangames que je commençais puis arrêtais en cours de route, mais cette fois c'est différent. Au lieu de compter sur les gros moteurs comme **Unreal Engine** ou **Unity**, j'ai décidé d'utiliser une petite bibliothèque open source nommée **Raylib**.
-
-## Technologies utilisées
+# Fangame Fnaf (Nom à voir)
 
 ### Programmation
 

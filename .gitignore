@@ -45,6 +45,9 @@ build/
 Build/
 build-*/
 
+# Discord SDK
+dependencies/discord_social_sdk/
+
 # CMake generated files
 CMakeFiles/
 CMakeCache.txt
